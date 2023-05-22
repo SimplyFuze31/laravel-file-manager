@@ -1,0 +1,11 @@
+.container{
+
+    max-width: 800px;
+    border: 2px;
+    border-color: darkgray;
+}
+
+table{
+    width: 100%;
+
+}
