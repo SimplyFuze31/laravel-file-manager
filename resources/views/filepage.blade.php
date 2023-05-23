@@ -43,6 +43,12 @@
             </tr>
 
             @forelse ($files as $file)
+
+            <tr>
+                <td>{{$file->filename}} </td>
+                <td> {{$file->filesize}} Kb </td>
+                <td
+            </tr>
                 
             @empty
                 

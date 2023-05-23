@@ -7,6 +7,7 @@ namespace App\Http\Controllers;
 use App\Models\File;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
 
 class FileController extends Controller
 {
@@ -15,27 +16,44 @@ class FileController extends Controller
      */
     public function index()
     {
-        return view('filepage');
+        $files = File::all();
+        return view('filepage', compact('files'));
     }
 
 
     public function store(Request $request)
     {
 
-        if($file = $request->hasFile('inputGroupFile04')){
+        if ($file = $request->hasFile('inputGroupFile04')) {
             $file = $request->file('inputGroupFile04');
-            
-            $file->storeAs('server storage',$file->getClientOriginalName());
-            return redirect()->back()->with('success','Файл успішно завантажений');
-        }
-        else return redirect()->back()->with('error','файл не вибраний');
-        
+
+            if (!File::where('filename', $file->getClientOriginalName())->exists()) {
+
+                $file->storeAs('server storage', $file->getClientOriginalName());
+                $path = 'server storage' . DIRECTORY_SEPARATOR . $file->getClientOriginalName();
+                $data = [
+                    'filename' => basename($path),
+                    'filesize' => Storage::size($path),
+                    'filepath' => $path
+                ];
+                File::create($data);
+                return redirect()->back()->with('success', 'Файл успішно завантажений');
+
+            } 
+            else {
+                return redirect()->back()->with('error', 'Такий файл вже існує');
+            } 
+
+        } else return redirect()->back()->with('error', 'файл не вибраний');
+        //return redirect()->back()->with('success','Файл успішно завантажений');*/
     }
 
-    public function show(){
 
-        $files = Storage::allFiles('server storage');
 
-        return var_dump($files);
+
+    public function show()
+    {
+
+        return var_dump(File::all());
     }
 }
