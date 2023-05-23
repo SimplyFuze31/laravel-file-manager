@@ -42,6 +42,12 @@
                 </td>
             </tr>
 
+            @forelse ($files as $file)
+                
+            @empty
+                
+            @endforelse
+
         </table>
 
 
