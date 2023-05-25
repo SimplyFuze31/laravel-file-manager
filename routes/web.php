@@ -5,7 +5,11 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::get('/', function () {
-    return view('newfilepage');
+    return view('index');
+});
+
+Route::get('/login', function () {
+    return view('login');
 });
 Route::get('/filepage', [FileController::class, 'index'])->name('filepage');
 Route::post('/filepage', [FileController::class, 'store'])->name('upload');
