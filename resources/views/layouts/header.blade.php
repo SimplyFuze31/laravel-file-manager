@@ -1,8 +1,4 @@
-@extends('layouts')
-@extends('login')
 
-
-@section('header')
     <nav class="navbar bg-success-subtle navbar-expand-md navbar-light sticky-top">
         <div class="container-xxl">
             <!-- Icon -->
@@ -35,4 +31,3 @@
             </div>
         </div>
     </nav>
-@endsection
