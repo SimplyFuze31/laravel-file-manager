@@ -1,27 +1,62 @@
 @extends('layouts')
 
 @section('content')
-    <div class="container">
-        <nav>
-
-        </nav>
-        <h1>Файли</h1>
-            @csrf
-            <div class="input-group">
-                <input type="text" class="form-control" name="searchinput" id="searchinput">
-                <button type="submit" class="btn btn-primary">Шукати</button>
+    {{-- Nav bar --}}
+    <nav class="navbar navbar-expand-sm bg-body-tertiary display-none-sm">
+        <div class="container-fluid">
+            <div class="container">
+                {{-- Logo --}}
+                <a class="navbar-brand navbar-toggler" href="#">
+                    <img src="{{ asset('images/iconback.svg') }}" alt="Logo" width="30" height="30"
+                        class="d-inline-block align-text-top navbar-toggler-icon">
+                    Повернутись на головну
+                </a>
             </div>
-            @if (session('success'))
-                <div class="alert alert-success" role="alert">
-                    {{ session('success') }}
-                </div>
-            @endif
+            {{-- Search bar --}}
+            <form class="d-flex" role="search">
+                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success" type="submit">Search</button>
+            </form>
+        </div>
+        </div>
+    </nav>
 
-            @if (session('error'))
-                <div class="alert alert-danger" role="alert">
-                    {{ session('error') }}
+    <div class="container">
+
+        <h2>Папки</h2>
+
+        <div class="directorys-container mt-3">
+
+            <div class="element">
+                <a href="#" class="link-dark" style="text-decoration: none">
+                <div class="element-body">
+                  <h5 class="">Card title</h5>
+                  </a>
                 </div>
-            @endif
+              </div>
+        </div>
+
+
+        <h2>Файли</h2>
+
+        <div class="directorys-container mt-3">
+
+
+        </div>
+
+        @csrf
+
+        @if (session('success'))
+            <div class="alert alert-success" role="alert">
+                {{ session('success') }}
+            </div>
+        @endif
+
+        @if (session('error'))
+            <div class="alert alert-danger" role="alert">
+                {{ session('error') }}
+            </div>
+        @endif
 
         <table class="file-table mt-3">
             <thead>
@@ -43,15 +78,12 @@
             </tr>
 
             @forelse ($files as $file)
+                <tr>
+                    <td>{{ $file->filename }} </td>
+                    <td> {{ $file->filesize }} Kb </td>
+                    <td </tr>
 
-            <tr>
-                <td>{{$file->filename}} </td>
-                <td> {{$file->filesize}} Kb </td>
-                <td
-            </tr>
-                
-            @empty
-                
+                    @empty
             @endforelse
 
         </table>
