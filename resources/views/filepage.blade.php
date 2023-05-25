@@ -1,4 +1,4 @@
-@extends('layouts')
+@extends('layouts.layout')
 
 @section('content')
     {{-- Nav bar --}}
@@ -21,7 +21,7 @@
         </div>
     </nav>
 
-    <div class="container">
+    {{-- <div class="container">
 
         <h2>Папки</h2>
 
@@ -35,9 +35,9 @@
                 </div>
               </div>
         </div>
+ --}}
 
-
-        <h2>Файли</h2>
+        {{-- <h2>Файли</h2>
 
         <div class="directorys-container mt-3">
 
@@ -89,5 +89,5 @@
         </table>
 
 
-    </div>
+    </div> --}}
 @endsection

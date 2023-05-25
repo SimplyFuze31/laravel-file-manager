@@ -1,4 +1,6 @@
 @extends('layouts.layout')
+@section('title','Login page')
+@include('layouts.header')
 @section('content')
     <!-- Main -->
     <main class="m-5">
@@ -39,3 +41,4 @@
 
 
 @endsection
+@include('layouts.footer')

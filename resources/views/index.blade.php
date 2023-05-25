@@ -1,5 +1,9 @@
 @extends('layouts.layout')
 
+@section('title','Main page')
+    
+
+@include('layouts.header')
 @section('content')
   <!-- Main -->
   <main class="m-5">
@@ -36,3 +40,4 @@
   </main>
   @endsection
     
+  @include('layouts.footer')
