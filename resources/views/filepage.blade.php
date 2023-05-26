@@ -1,93 +1,101 @@
 @extends('layouts.layout')
 
+@section('title', 'File page')
+{{-- header пока-шо заглушка --}}
+@include('layouts.header')
 @section('content')
-    {{-- Nav bar --}}
-    <nav class="navbar navbar-expand-sm bg-body-tertiary display-none-sm">
-        <div class="container-fluid">
-            <div class="container">
-                {{-- Logo --}}
-                <a class="navbar-brand navbar-toggler" href="#">
-                    <img src="{{ asset('images/iconback.svg') }}" alt="Logo" width="30" height="30"
-                        class="d-inline-block align-text-top navbar-toggler-icon">
-                    Повернутись на головну
-                </a>
+
+    {{-- Бордери зроблені для того шоб я бачив де ті колонки вопше є
+    я їх пізніше позабираю, а структура така справа будьть показуватись файли і папки 
+    а зліва інструменти для роботи з ними це вже зразу адмін панель студентам буде доступна тільки права сторона --}}
+    <div class="row">
+
+
+        {{-- left toolbar side  --}}
+        <div class="col-5 mt-3 me-3 border border-success rounded">
+
+            <div >
+                <h3 class="mt-3 fs-2 fw-bold text-secondary">Додати новий файл</h3>
+                <form method="POST" action="{{ route('upload') }}" enctype="multipart/form-data" class="mt-3">
+                    @csrf
+                    <div class="input-group">
+                        <input type="file" class="form-control mw-100" name="inputGroupFile04" id="inputGroupFile04">
+                        <button type="submit" class="btn btn-primary">Додати файл</button>
+                    </div>
+                </form>
+
+                <h3 class="mt-3 fs-2 fw-bold text-secondary">Додати нову папку</h3>
+                <form method="POST" action="{{ route('upload') }}" enctype="multipart/form-data" class="mt-3">
+                    @csrf
+                    <div class="input-group">
+                        <input type="text" class="form-control mw-100" name="inputGroupText04" id="inputGroupText04">
+                        <button type="submit" class="btn btn-primary">Додати папку</button>
+                    </div>
+                </form>
             </div>
-            {{-- Search bar --}}
-            <form class="d-flex" role="search">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success" type="submit">Search</button>
-            </form>
-        </div>
-        </div>
-    </nav>
-
-    {{-- <div class="container">
-
-        <h2>Папки</h2>
-
-        <div class="directorys-container mt-3">
-
-            <div class="element">
-                <a href="#" class="link-dark" style="text-decoration: none">
-                <div class="element-body">
-                  <h5 class="">Card title</h5>
-                  </a>
-                </div>
-              </div>
-        </div>
- --}}
-
-        {{-- <h2>Файли</h2>
-
-        <div class="directorys-container mt-3">
-
-
         </div>
 
-        @csrf
 
-        @if (session('success'))
-            <div class="alert alert-success" role="alert">
-                {{ session('success') }}
+
+        {{-- right info side --}}
+        <div class="col-6 mt-3 pt-2 ms-3 border border-success rounded">
+            <div>
+                <table class="table table-hover caption-top border w-75 center-block">
+                    <caption class="fs-2 fw-bold">Папки</caption>
+                    <thead>
+                        <th class="fs-5 fw-light aligin-start ">Назва папки</th>
+                        <th class=""></th>
+
+                    </thead>
+                    <tbody>
+                        {{-- table rows --}}
+                        @forelse ($folders as $folder)
+                            <tr>
+                                <td class="w-75"><a href="/"
+                                        class="text-decoration-none link-dark">{{ basename($folder) }}</a></td>
+                                <td><a href="" class="btn btn-danger">Видалити</a></td>
+                            </tr>
+                        @empty
+                            <td colspan="2">Немає наявних папок</td>
+                        @endforelse
+                    </tbody>
             </div>
-        @endif
 
-        @if (session('error'))
-            <div class="alert alert-danger" role="alert">
-                {{ session('error') }}
+
+
+            <div >
+                <table class="table table-hover caption-top border w-75 center-block">
+                    <caption class="fs-2 fw-bold">Файли</caption>
+                    <thead>
+                        <th class="fs-5 fw-light aligin-start ">Назва файла</th>
+                        <th class=""></th>
+
+                    </thead>
+                    <tbody>
+                        {{-- table rows --}}
+                        @forelse ($files as $file)
+                            <tr>
+                                <td class="w-75">{{ basename($file->filepath) }}</td>
+                                <td>
+                                    <div class="btn-group" role="group">
+                                        <button type="button" class="btn btn-primary dropdown-toggle"
+                                            data-bs-toggle="dropdown" aria-expanded="false">
+                                            •••
+                                        </button>
+                                        <ul class="dropdown-menu">
+                                            <li><a class="dropdown-item link-success"" href="#">Завантажити</a></li>
+                                            <li><a class="dropdown-item link-danger" href="#">Видалити</a></li>
+
+                                        </ul>
+                                    </div>
+                                </td>
+                            </tr>
+                        @empty
+                            <td colspan="2">Немає наявних папок</td>
+                        @endforelse
+                    </tbody>
             </div>
-        @endif
+        </div>
+    </div>
 
-        <table class="file-table mt-3">
-            <thead>
-                <th>Назва файлу</th>
-                <th>Розмір файлу</th>
-                <th>Дата завантаження</th>
-                <th>Завантажити на пк</th>
-            </thead>
-            <tr>
-                <td colspan="4">
-                    <form method="POST" action="{{ route('upload') }}" enctype="multipart/form-data" class="mt-3">
-                        @csrf
-                        <div class="input-group">
-                            <input type="file" class="form-control" name="inputGroupFile04" id="inputGroupFile04">
-                            <button type="submit" class="btn btn-primary">Завантажити</button>
-                        </div>
-                    </form>
-                </td>
-            </tr>
-
-            @forelse ($files as $file)
-                <tr>
-                    <td>{{ $file->filename }} </td>
-                    <td> {{ $file->filesize }} Kb </td>
-                    <td </tr>
-
-                    @empty
-            @endforelse
-
-        </table>
-
-
-    </div> --}}
 @endsection

@@ -15,7 +15,7 @@
                         <label for="email" class="form-label">Логін:</label>
                         <div class="input-group mb-4">
                             <span class="input-group-text">
-                                <i class="bi bi-envelope-fill text-secondary"></i>
+                                <i class="bx bx-user text-secondary"></i>
                             </span>
                             <input type="text" id="email" class="form-control"
                                 placeholder="hpk_teacher123@vsplphpk.onmicrosoft.com" />
@@ -23,7 +23,7 @@
                         <label for="name" class="form-label">Пароль:</label>
                         <div class="mb-4 input-group">
                             <span class="input-group-text">
-                                <i class="bi bi-person-fill text-secondary"></i>
+                                <i class="bx bx-lock-alt text-secondary"></i>
                             </span>
                             <!-- Пароль -->
                             <input type="password" id="name" class="form-control" placeholder="••••••••••••••••" />

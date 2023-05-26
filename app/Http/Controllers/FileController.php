@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Http\Controllers;
 
 use App\Models\File;
+use Illuminate\Foundation\Console\StorageLinkCommand;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
@@ -16,8 +17,9 @@ class FileController extends Controller
      */
     public function index()
     {
+        $folders = Storage::allDirectories('server storage');
         $files = File::all();
-        return view('filepage', compact('files'));
+        return view('filepage', compact('files','folders'));
     }
 
 
@@ -54,6 +56,6 @@ class FileController extends Controller
     public function show()
     {
 
-        return var_dump(File::all());
+        return var_dump(Storage::allDirectories('server storage'));
     }
 }
