@@ -10,13 +10,12 @@
     а зліва інструменти для роботи з ними це вже зразу адмін панель студентам буде доступна тільки права сторона --}}
     <div class="row">
 
-
         {{-- left toolbar side  --}}
-        <div class="col-5 mt-3 me-3 border border-success rounded">
+        <div class="col-5 mt-3 mx-5 ">
 
-            <div >
+            <div class="border border-success roundeds" >
                 <h3 class="mt-3 fs-2 fw-bold text-secondary">Додати новий файл</h3>
-                <form method="POST" action="{{ route('upload') }}" enctype="multipart/form-data" class="mt-3">
+                <form method="POST" action="{{ route('upload') }}" enctype="multipart/form-data" class="mt-3 w-75">
                     @csrf
                     <div class="input-group">
                         <input type="file" class="form-control mw-100" name="inputGroupFile04" id="inputGroupFile04">
@@ -25,7 +24,7 @@
                 </form>
 
                 <h3 class="mt-3 fs-2 fw-bold text-secondary">Додати нову папку</h3>
-                <form method="POST" action="{{ route('upload') }}" enctype="multipart/form-data" class="mt-3">
+                <form method="POST" action="{{ route('upload') }}" enctype="multipart/form-data" class="mt-3 w-75">
                     @csrf
                     <div class="input-group">
                         <input type="text" class="form-control mw-100" name="inputGroupText04" id="inputGroupText04">
@@ -38,7 +37,7 @@
 
 
         {{-- right info side --}}
-        <div class="col-6 mt-3 pt-2 ms-3 border border-success rounded">
+        <div class="col-5 mt-3 pt-2 ms-3 border border-success rounded">
             <div>
                 <table class="table table-hover caption-top border w-75 center-block">
                     <caption class="fs-2 fw-bold">Папки</caption>

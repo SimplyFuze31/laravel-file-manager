@@ -1,0 +1,7 @@
+table{
+    overflow-y:scroll;
+    height:100px;
+    display:block;
+    min-width: 400px;
+    min-height: 400px;
+ }
