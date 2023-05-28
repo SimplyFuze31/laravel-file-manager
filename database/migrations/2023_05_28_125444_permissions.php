@@ -12,8 +12,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('permissions', function (Blueprint $table) {
-            $table->foreignId('group_id')->constrained();
+            $table->id();
             $table->foreignId('folder_id')->constrained();
+            $table->foreignId('group_id')->constrained();
             $table->timestamps();
         });
     }
@@ -23,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('permissions');
+        //
     }
 };
