@@ -11,6 +11,12 @@
     {{-- 27.05 Ой блііін я тіки зараз згадав шо в тебе ж день народження Вітаю)
     короче це пока буде такий робочий кінцевий варіант треба погратись з розміщенням і всією цею хуйньою
     но ладно роблю бек і буду переходити до логін системи --}}
+    
+        @auth
+            <div>
+                <h1>Ви авторизовані  </h1>
+            </div>
+        @endauth
 
     <div class="row container-lg justify-content-center">
 
@@ -28,10 +34,10 @@
                 </form>
 
                 <h3 class="mt-3 fs-2 fw-bold text-secondary">Додати нову папку</h3>
-                <form method="POST" action="{{ route('upload') }}" enctype="multipart/form-data" class="mt-3 w-75">
+                <form method="POST" action="{{ route('createfolder') }}" enctype="multipart/form-data" class="mt-3 w-75">
                     @csrf
                     <div class="input-group">
-                        <input type="text" class="form-control mw-100" name="inputGroupText04" id="inputGroupText04">
+                        <input type="text" class="form-control mw-100" name="foldername" id="inputFoldername">
                         <button type="submit" class="btn btn-primary">Додати папку</button>
                     </div>
                 </form>
@@ -54,9 +60,9 @@
                     <tr>
                         <td class="w-100">
                             <i class="bx bxs-folder text-secondary fs-3"></i>
-                            <a href="/" class="text-decoration-none link-dark">{{ basename($folder) }}</a>
+                            <a href="/" class="text-decoration-none link-dark">{{ $folder->folder     }}</a>
                         </td>
-                        <td><a href="" class="btn btn-danger">Видалити</a></td>
+                        <td><a href="{{ route('deletefolder',['path'=>$folder]) }}" class="btn btn-danger">Видалити</a></td>
                     </tr>
                 @empty
                     <td colspan="2">Немає наявних папок</td>
@@ -83,7 +89,7 @@
                     </td>
                 </tr>
             @empty
-                <td colspan="2">Немає наявних папок</td>
+                <td colspan="2">Немає наявних файлів</td>
             @endforelse
             </tbody>
         </table>

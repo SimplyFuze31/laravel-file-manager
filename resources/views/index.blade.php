@@ -5,6 +5,11 @@
 
 @include('layouts.header')
 @section('content')
+@auth
+<div>
+    <h1>Ви авторизовані  </h1>
+</div>
+@endauth
   <!-- Main -->
   <main class="m-5">
       <div> 

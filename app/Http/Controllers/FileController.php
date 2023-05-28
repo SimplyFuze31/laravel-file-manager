@@ -5,10 +5,9 @@ declare(strict_types=1);
 namespace App\Http\Controllers;
 
 use App\Models\File;
-use Illuminate\Foundation\Console\StorageLinkCommand;
+use App\Models\Folder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\Validator;
 
 class FileController extends Controller
 {
@@ -17,28 +16,38 @@ class FileController extends Controller
      */
     public function index()
     {
-        $folders = Storage::allDirectories('server storage');
+        $folders = Folder::all();
         $files = File::all();
         return view('filepage', compact('files','folders'));
     }
 
 
-    public function store(Request $request)
-    {
+    public function upload(Request $request)
+    {   
+        //TODO: make support for folder 
+        //check if the file exists
 
+        
         if ($file = $request->hasFile('inputGroupFile04')) {
+            //take file from request
             $file = $request->file('inputGroupFile04');
-
+            //check if file exists in database
             if (!File::where('filename', $file->getClientOriginalName())->exists()) {
-
+                //save file in folder
                 $file->storeAs('server storage', $file->getClientOriginalName());
+                //take a path
                 $path = 'server storage' . DIRECTORY_SEPARATOR . $file->getClientOriginalName();
                 $data = [
                     'filename' => basename($path),
                     'filesize' => Storage::size($path),
                     'filepath' => $path
                 ];
-                File::create($data);
+                //save file in database
+                File::create([
+                    'filename' => basename($path),
+                    'filesize' => Storage::size($path),
+                    'filepath' => $path
+                ]);
                 return redirect()->back()->with('success', 'Файл успішно завантажений');
 
             } 
@@ -47,7 +56,6 @@ class FileController extends Controller
             } 
 
         } else return redirect()->back()->with('error', 'файл не вибраний');
-        //return redirect()->back()->with('success','Файл успішно завантажений');*/
     }
 
 
@@ -56,6 +64,7 @@ class FileController extends Controller
     public function show()
     {
 
-        return var_dump(Storage::allDirectories('server storage'));
+        File::truncate();
+        Folder::truncate();
     }
 }

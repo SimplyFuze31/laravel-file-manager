@@ -25,7 +25,7 @@
                         <a class="nav-link" href="infopage.php">Інформація</a>
                       </li> -->
                     <li class="nav-item mx-4">
-                        <a class="nav-link" href="/login">Увійти</a>
+                        <a class="nav-link" href="/loginpage">Увійти</a>
                     </li>
                 </ul>
             </div>
