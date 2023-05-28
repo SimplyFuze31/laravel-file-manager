@@ -15,6 +15,8 @@ Route::get('/filepage', [FileController::class, 'index'])->name('filepage');
 Route::post('/filepage', [FileController::class, 'upload'])->name('upload');
 Route::get('/show', [FileController::class, 'show'])->name('show');
 //folders
+
+Route::get('/folder/{foldername}', 'UserController@index')->name('user');
 //create folder
 Route::post('/create-folder', [FolderController::class, 'create'])->name('createfolder');
 //delete folder
