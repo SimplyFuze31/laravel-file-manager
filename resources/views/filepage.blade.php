@@ -60,7 +60,7 @@
                     <tr>
                         <td class="w-100">
                             <i class="bx bxs-folder text-secondary fs-3"></i>
-                            <a href="/" class="text-decoration-none link-dark">{{ $folder->folder     }}</a>
+                            <a href="/" class="text-decoration-none link-dark">{{ $folder->foldername}}</a>
                         </td>
                         <td><a href="{{ route('deletefolder',['path'=>$folder]) }}" class="btn btn-danger">Видалити</a></td>
                     </tr>

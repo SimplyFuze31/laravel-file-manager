@@ -37,11 +37,6 @@ class FileController extends Controller
                 $file->storeAs('server storage', $file->getClientOriginalName());
                 //take a path
                 $path = 'server storage' . DIRECTORY_SEPARATOR . $file->getClientOriginalName();
-                $data = [
-                    'filename' => basename($path),
-                    'filesize' => Storage::size($path),
-                    'filepath' => $path
-                ];
                 //save file in database
                 File::create([
                     'filename' => basename($path),
