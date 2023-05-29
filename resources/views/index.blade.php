@@ -43,6 +43,6 @@
           <!-- Image         End    -->
       </div>
   </main>
-  @endsection
+@include('layouts.footer')
+@endsection
     
-  @include('layouts.footer')
