@@ -19,7 +19,7 @@
             </div>
             <div class="row justify-content-center my-3">
                 <div class="col-md-5">
-                    <form action="/login" method="POST">
+                    <form action="{{ route('login.perform')}}" method="POST">
                         @csrf
                         <label for="email" class="form-label">Логін:</label>
                         <div class="input-group mb-4">

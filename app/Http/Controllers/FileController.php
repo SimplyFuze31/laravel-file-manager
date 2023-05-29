@@ -14,12 +14,7 @@ class FileController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
-    {
-        $folders = Folder::all();
-        $files = File::all();
-        return view('filepage', compact('files','folders'));
-    }
+
 
 
     public function upload(Request $request)
@@ -41,7 +36,8 @@ class FileController extends Controller
                 File::create([
                     'filename' => basename($path),
                     'filesize' => Storage::size($path),
-                    'filepath' => $path
+                    'filepath' => $path,
+                    'folder_id' => $folder_if ?? 1
                 ]);
                 return redirect()->back()->with('success', 'Файл успішно завантажений');
 

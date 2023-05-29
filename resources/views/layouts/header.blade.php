@@ -18,14 +18,14 @@
                         <a class="nav-link" href="/">Головна</a>
                     </li>
                     <li class="nav-item mx-4">
-                        <a class="nav-link" href="/filepage">Файли</a>
+                        <a class="nav-link" href="/folders">Файли</a>
                     </li>
                     <!-- Information (Може тупо видалити) -->
                     <!-- <li class="nav-item mx-4">
                         <a class="nav-link" href="infopage.php">Інформація</a>
                       </li> -->
                     <li class="nav-item mx-4">
-                        <a class="nav-link" href="/loginpage">Увійти</a>
+                        <a class="nav-link" href="/login">Увійти</a>
                     </li>
                 </ul>
             </div>

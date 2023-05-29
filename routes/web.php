@@ -3,6 +3,7 @@
 use App\Http\Controllers\FolderController;
 use App\Http\Controllers\FileController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\LoginController;
 use App\Models\Folder;
 use Illuminate\Support\Facades\Route;
 
@@ -10,40 +11,41 @@ use Illuminate\Support\Facades\Route;
 //main page
 Route::view('/', 'index');
 
-Route::group(['middleware' => ['guests']], function () {
+Route::group(['middleware' => ['guest']],function(){
 
-    Route::get('/login', 'LoginController@show')->name('login.show');
-    Route::post('/login', 'LoginController@login')->name('login.perform');
+    Route::get('/login', [LoginController::class , 'show'])->name('login.show');
+    Route::post('/login', [LoginController::class , 'login'])->name('login.perform');
+
 });
+
+
 
 
 Route::group(['middleware' => ['auth', 'permission']], function () {
     /**
      * Logout Routes
      */
-    Route::get('/logout', 'LogoutController@perform')->name('logout.perform');
+    Route::get('/logout', [LoginController::class , 'logout'])->name('logout');
 
     /**
      * User Routes
      */
     Route::group(['prefix' => 'users'], function () {
-        Route::get('/', 'UsersController@index')->name('users.index');
-        Route::post('/create', 'UsersController@store')->name('users.store');
-        Route::get('/{user}/show', 'UsersController@show')->name('users.show');
-        Route::get('/{user}/edit', 'UsersController@edit')->name('users.edit');
-        Route::patch('/{user}/update', 'UsersController@update')->name('users.update');
-        Route::delete('/{user}/delete', 'UsersController@destroy')->name('users.destroy');
+        Route::get('/', [UserController::class , 'index'])->name('users.index');
+        Route::post('/create', [UserController::class , 'create'])->name('users.store');
+        Route::patch('/{user}/edit', [UserController::class , 'edit'])->name('users.update');
+        Route::delete('/{user}/delete', [UserController::class , 'delete'])->name('users.destroy');
     });
 
     Route::group(['prefix' => 'folders'], function(){
 
-        Route::get('/', 'FolderController@index')->name('folders.index');
-        Route::post('/create', 'FolderController@store')->name('folders.store');
-        Route::get('/{folder}/show', 'FolderController@show')->name('folders.show');
-        Route::delete('/{folder}/delete', 'FolderController@destroy')->name('Folder.destroy');
-        Route::get('/filecreate', 'FileController@create')->name('files.create');
-        Route::post('/filecreate', 'FileController@store')->name('files.store');
-        Route::delete('/{file}/delete', 'FileController@destroy')->name('file.destroy');
+        Route::get('/', [FolderController::class , 'index'])->name('folders.index');
+        Route::post('/create', [FolderController::class , 'create'])->name('folders.create');
+        Route::get('/{folder}/show', [FolderController::class , 'show'])->name('folders.show');
+        Route::delete('/delete/{folder}', [FolderController::class , 'delete'])->name('Folder.destroy');
+        Route::get('/fileupload', [FileController::class , 'upload'])->name('files.create');
+        Route::post('/filedownload', [FileController::class , 'download'])->name('files.store');
+        Route::delete('/{file}/delete', [FileController::class , 'delete'])->name('file.destroy');
     });
 });
 

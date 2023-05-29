@@ -3,9 +3,9 @@
 namespace Database\Seeders;
 
 use App\Models\User;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
 
 class UserSeeder extends Seeder
 {
@@ -14,23 +14,20 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-    // User::create([
-    //     'name' => 'admin',
-    //     'email' => 'olexandrkondratiuk@vsplphpk.onmicrosoft.com',
-    //     'password' => bcrypt('admin123'),
-    //     'group_id' => 1
-    // ]);
-    // User::create([
-    //     'name' => 'Teacher',
-    //     'email' => 'sashakondratiuk@vsplphpk.onmicrosoft.com',
-    //     'password' => bcrypt('admin123'),
-    //     'group_id' => 2
-    // ]);
-    // User::create([
-    //     'name' => 'Student',
-    //     'email' => 'alehandrokondratiuk@vsplphpk.onmicrosoft.com',
-    //     'password' => bcrypt('admin123'),
-    //     'group_id' => 3
-    // ]);
+
+        $user = User::create([
+            'name' => 'admin',
+            'email' => 'admin@admin.com',
+            'password' => bcrypt('admin123'),
+            'group_id' => 1
+        ]);
+
+        $role = Role::create(['name' => 'admin']);
+
+        $permissions = Permission::pluck('id', 'id')->all();
+
+        $role->syncPermissions($permissions);
+
+        $user->assignRole([$role->id]);
     }
 }

@@ -13,6 +13,12 @@
                     <li class="nav-item mx-5">
                         <a class="nav-link" href="https://www.instagram.com/khm.politehcollege/">Instagram</a>
                     </li>
+                    @auth
+                    <li class="nav-item mx-5">
+                        <a class="nav-link" href="{{route('logout')}}">Log out</a>
+                    </li>
+                        
+                    @endauth
                 </ul>
             </div>
         </div>
