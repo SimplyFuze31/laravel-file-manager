@@ -1,5 +1,5 @@
     <!-- Footer -->
-    <nav class="navbar bg-body-secondary navbar-expand-sm navbar-light fixed-bottom">
+    <nav class="navbar bg-body-secondary navbar-expand-sm navbar-light">
         <div class="container-xxl">
             <!-- Link -->
             <div class="navbar-collapse justify-content-center h6" id="main-nav">

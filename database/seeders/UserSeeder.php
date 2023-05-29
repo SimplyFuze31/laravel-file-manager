@@ -14,12 +14,12 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-    // User::create([
-    //     'name' => 'admin',
-    //     'email' => 'olexandrkondratiuk@vsplphpk.onmicrosoft.com',
-    //     'password' => bcrypt('admin123'),
-    //     'group_id' => 1
-    // ]);
+    User::create([
+        'name' => 'admin',
+        'email' => 'olexandrkondratiuk@vsplphpk.onmicrosoft.com',
+        'password' => bcrypt('admin123'),
+        'group_id' => 1
+    ]);
     // User::create([
     //     'name' => 'Teacher',
     //     'email' => 'sashakondratiuk@vsplphpk.onmicrosoft.com',
