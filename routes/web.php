@@ -28,7 +28,6 @@ Route::group(['middleware' => ['auth', 'permission']], function () {
      */
     Route::group(['prefix' => 'users'], function () {
         Route::get('/', 'UsersController@index')->name('users.index');
-        Route::get('/create', 'UsersController@create')->name('users.create');
         Route::post('/create', 'UsersController@store')->name('users.store');
         Route::get('/{user}/show', 'UsersController@show')->name('users.show');
         Route::get('/{user}/edit', 'UsersController@edit')->name('users.edit');
@@ -39,7 +38,6 @@ Route::group(['middleware' => ['auth', 'permission']], function () {
     Route::group(['prefix' => 'folders'], function(){
 
         Route::get('/', 'FolderController@index')->name('folders.index');
-        Route::get('/create', 'FolderController@create')->name('folders.create');
         Route::post('/create', 'FolderController@store')->name('folders.store');
         Route::get('/{folder}/show', 'FolderController@show')->name('folders.show');
         Route::delete('/{folder}/delete', 'FolderController@destroy')->name('Folder.destroy');
