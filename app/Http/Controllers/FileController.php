@@ -37,7 +37,7 @@ class FileController extends Controller
                     'filename' => basename($path),
                     'filesize' => Storage::size($path),
                     'filepath' => $path,
-                    'folder_id' => $folder_if ?? 1
+                    'folder_id' => $folder_id ?? 1
                 ]);
                 return redirect()->back()->with('success', 'Файл успішно завантажений');
 

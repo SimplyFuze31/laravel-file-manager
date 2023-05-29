@@ -14,7 +14,7 @@
     
         @auth
             <div>
-                <h1>Ви авторизовані  </h1>
+                <h1>{{Auth::user()->name;}}  </h1>
             </div>
         @endauth
 
@@ -25,7 +25,7 @@
 
             <div class="border border-success roundeds">
                 <h3 class="mt-3 fs-2 fw-bold text-secondary">Додати новий файл</h3>
-                <form method="POST" action="{{ route('upload') }}" enctype="multipart/form-data" class="mt-3 w-75">
+                <form method="POST" action="{{ route('file.upload') }}" enctype="multipart/form-data" class="mt-3 w-75">
                     @csrf
                     <div class="input-group">
                         <input type="file" class="form-control mw-100" name="inputGroupFile04" id="inputGroupFile04">
@@ -34,7 +34,7 @@
                 </form>
 
                 <h3 class="mt-3 fs-2 fw-bold text-secondary">Додати нову папку</h3>
-                <form method="POST" action="{{ route('createfolder') }}" enctype="multipart/form-data" class="mt-3 w-75">
+                <form method="POST" action="{{ route('folder.create') }}" enctype="multipart/form-data" class="mt-3 w-75">
                     @csrf
                     <div class="input-group">
                         <input type="text" class="form-control mw-100" name="foldername" id="inputFoldername">
@@ -60,9 +60,9 @@
                     <tr>
                         <td class="w-100">
                             <i class="bx bxs-folder text-secondary fs-3"></i>
-                            <a href="/" class="text-decoration-none link-dark">{{ $folder->foldername}}</a>
+                            <a href="{{ route('folder.show',$folder->foldername)}}" class="text-decoration-none link-dark">{{ $folder->foldername}}</a>
                         </td>
-                        <td><a href="{{ route('deletefolder',['path'=>$folder]) }}" class="btn btn-danger">Видалити</a></td>
+                        {{-- <td><a href="{{ route('folder.destroy',['path'=>$folder]) }}" class="btn btn-danger">Видалити</a></td> --}}
                     </tr>
                 @empty
                     <td colspan="2">Немає наявних папок</td>

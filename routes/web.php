@@ -21,7 +21,7 @@ Route::group(['middleware' => ['guest']],function(){
 
 
 
-Route::group(['middleware' => ['auth', 'permission']], function () {
+Route::group(['middleware' => ['auth']], function () {
     /**
      * Logout Routes
      */
@@ -39,12 +39,12 @@ Route::group(['middleware' => ['auth', 'permission']], function () {
 
     Route::group(['prefix' => 'folders'], function(){
 
-        Route::get('/', [FolderController::class , 'index'])->name('folders.index');
-        Route::post('/create', [FolderController::class , 'create'])->name('folders.create');
-        Route::get('/{folder}/show', [FolderController::class , 'show'])->name('folders.show');
-        Route::delete('/delete/{folder}', [FolderController::class , 'delete'])->name('Folder.destroy');
-        Route::get('/fileupload', [FileController::class , 'upload'])->name('files.create');
-        Route::post('/filedownload', [FileController::class , 'download'])->name('files.store');
+        Route::get('/{folder?}', [FolderController::class , 'index'])->name('folder.index');
+        Route::post('/create', [FolderController::class , 'create'])->name('folder.create');
+        Route::get('/{folder}/show', [FolderController::class , 'show'])->name('folder.show');
+        Route::delete('/delete/{folder}', [FolderController::class , 'delete'])->name('folder.destroy');
+        Route::post('/fileupload', [FileController::class , 'upload'])->name('file.upload');
+        Route::post('/filedownload', [FileController::class , 'download'])->name('file.download');
         Route::delete('/{file}/delete', [FileController::class , 'delete'])->name('file.destroy');
     });
 });
