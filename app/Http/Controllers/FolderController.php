@@ -19,8 +19,8 @@ class FolderController extends Controller
             $files = File::all()->where('folder_id',  1);
             return view('filepage', compact('files','folders'));
         }else{
-            $files = File::all()->where('folder_id', '=', $folder->id);
-            return 'Work in progress';
+            $files = File::all()->where('folder_id' ,'=' ,$folder->id);
+            return view('folderfile',compact('files', 'folder'));
         }
 
 
@@ -28,15 +28,14 @@ class FolderController extends Controller
     }
 
     public function show(Folder $folder){
-        $files = File::all()->where('folder_id' ,'=' ,$folder->id);
-        return view('folderfile',compact('files'));
+
     }
     public function create(Request $request){
         $incomingdata = $request->validate([
 
             'foldername' => ['required','max:40']
         ]); 
-            $path = "server storage".DIRECTORY_SEPARATOR.$incomingdata['foldername'];
+            $path = storage_path('app/server storage').DIRECTORY_SEPARATOR.$incomingdata['foldername'].DIRECTORY_SEPARATOR;
             $incomingdata['folderpath'] = $path;
             Storage::createDirectory($path);
 
@@ -45,10 +44,12 @@ class FolderController extends Controller
             return redirect()->back()->with('succsess','Папка успішно створена');
         }
 
-    public function delete(Request $request , $folder){
-        //Storage::deleteDirectory($path);
+    public function delete(Request $request , Folder $folder){
+        
+        Storage::deleteDirectory($folder->folderpath);
+        $folder->delete();
 
         
-        return redirect()->back()->with('succsess','Папка успішно створена');
+        return redirect()->back()->with('succsess','Папка успішно видалена');
     }
 }

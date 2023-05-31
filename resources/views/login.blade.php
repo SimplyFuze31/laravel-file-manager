@@ -1,13 +1,13 @@
 @extends('layouts.layout')
-@section('title','Login page')
+@section('title', 'Login page')
 @include('layouts.header')
 @section('content')
 
-@auth
-<div>
-    <h1>Ви авторизовані  </h1>
-</div>
-@endauth
+    @auth
+        <div>
+            <h1>Ви авторизовані </h1>
+        </div>
+    @endauth
     <!-- Main -->
     <main class="m-5">
 
@@ -19,14 +19,20 @@
             </div>
             <div class="row justify-content-center my-3">
                 <div class="col-md-5">
-                    <form action="{{ route('login.perform')}}" method="POST">
+
+                    @if (session('error'))
+                        <div class="alert alert-danger" role="alert">
+                            {{ session('error') }}
+                        </div>
+                    @endif
+                    <form action="{{ route('login.perform') }}" method="POST">
                         @csrf
                         <label for="email" class="form-label">Логін:</label>
                         <div class="input-group mb-4">
                             <span class="input-group-text">
                                 <i class="bx bx-user text-secondary"></i>
                             </span>
-                            <input type="text" name ="email" id="email" class="form-control"
+                            <input type="text" name="email" id="email" class="form-control"
                                 placeholder="hpk_teacher123@vsplphpk.onmicrosoft.com" />
                         </div>
                         <label for="name" class="form-label">Пароль:</label>
@@ -35,7 +41,8 @@
                                 <i class="bx bx-lock-alt text-secondary"></i>
                             </span>
                             <!-- Пароль -->
-                            <input type="password" name="password" id="name" class="form-control" placeholder="••••••••••••••••" />
+                            <input type="password" name="password" id="name" class="form-control"
+                                placeholder="••••••••••••••••" />
                         </div>
                         <div class="m-5 text-center">
                             <button type="submit" class="btn btn-secondary bg-primary">
@@ -47,5 +54,5 @@
             </div>
         </div>
     </main>
-{{-- @include('layouts.footer') --}}
+    {{-- @include('layouts.footer') --}}
 @endsection

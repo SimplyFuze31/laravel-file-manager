@@ -17,27 +17,31 @@ class FileController extends Controller
 
 
 
-    public function upload(Request $request)
+    public function upload(Request $request, ?Folder $folder)
     {   
-        //TODO: make support for folder 
         //check if the file exists
+        if($folder->id === null){
 
+            $folder = Folder::find(1);
+
+        }
         
         if ($file = $request->hasFile('inputGroupFile04')) {
             //take file from request
             $file = $request->file('inputGroupFile04');
+            $path = $folder->folderpath .  $file->getClientOriginalName();
             //check if file exists in database
-            if (!File::where('filename', $file->getClientOriginalName())->exists()) {
+            if (!File::find($path) ){
                 //save file in folder
-                $file->storeAs('server storage', $file->getClientOriginalName());
+                $file->storeAs($folder->folderpath, $file->getClientOriginalName());
                 //take a path
-                $path = 'server storage' . DIRECTORY_SEPARATOR . $file->getClientOriginalName();
+
                 //save file in database
                 File::create([
                     'filename' => basename($path),
                     'filesize' => Storage::size($path),
                     'filepath' => $path,
-                    'folder_id' => $folder_id ?? 1
+                    'folder_id' => $folder->id
                 ]);
                 return redirect()->back()->with('success', 'Файл успішно завантажений');
 
@@ -49,13 +53,22 @@ class FileController extends Controller
         } else return redirect()->back()->with('error', 'файл не вибраний');
     }
 
+    //TODO: make file delete
+    public function delete(File $file){
 
+        Storage::delete($file->filepath);
+        $file->delete();
+        return redirect()->back();
 
-
-    public function show()
-    {
-
-        File::truncate();
-        Folder::truncate();
     }
+
+    //TODO: make file download
+    public function download(File $file){
+
+        $path = storage_path('app'). DIRECTORY_SEPARATOR. $file->filepath;
+        return response()->download($path);
+
+    }
+
+
 }
