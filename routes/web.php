@@ -1,15 +1,18 @@
 <?php
 
-use App\Http\Controllers\FolderController;
+use App\Models\Folder;
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FileController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\LoginController;
-use App\Models\Folder;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\RolesController;
+use App\Http\Controllers\FolderController;
 
 
 //main page
 Route::view('/', 'index');
+Route::view('/permission', 'permission');
+
 
 Route::group(['middleware' => ['guest']],function(){
 
@@ -20,8 +23,12 @@ Route::group(['middleware' => ['guest']],function(){
 
 
 
-
 Route::group(['middleware' => ['auth']], function () {
+    Route::group(['prefix' => 'roles'],function(){
+        Route::get('/', [RolesController::class , 'index'])->name('roles.index');
+        Route::post('/create', [RolesController::class , 'create'])->name('roles.create');
+    });
+    
     /**
      * Logout Routes
      */

@@ -1,6 +1,6 @@
 @extends('layouts.layout')
 @section('title', 'Login page')
-@include('layouts.header')
+@include('layouts.partials.header')
 @section('content')
 
     @auth

@@ -16,7 +16,7 @@ class FolderSeeder extends Seeder
         Folder::create([
 
             'foldername'=>'server storage',
-            'folderpath'=>storage_path('app/server storage')
+            'folderpath'=>storage_path('app/server storage/')
         ]);
     }
 }
