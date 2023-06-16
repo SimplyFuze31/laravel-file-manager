@@ -20,6 +20,7 @@ class FileController extends Controller
             $folder = Folder::find(1);
 
         }
+       
         
         if ($file = $request->hasFile('inputGroupFile04')) {
             //take file from request
@@ -29,7 +30,6 @@ class FileController extends Controller
             if (!DataFile::find($path) ){
                 //save file in folder
                 File::put($path,$file);
-                //$file->storeAs($folder->folderpath, $file->getClientOriginalName());
                 //take a path
 
                 //save file in database

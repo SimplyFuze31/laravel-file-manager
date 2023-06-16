@@ -16,10 +16,10 @@ class FolderController extends Controller
 
             $folders = Folder::all()->where('id', '>' , 1);
             $files = FileData::all()->where('folder_id',  1);
-            return view('filepage', compact('files','folders'));
+            return view('folders.index', compact('files','folders'));
         }else{
             $files = FileData::all()->where('folder_id' ,'=' ,$folder->id);
-            return view('folderfile',compact('files', 'folder'));
+            return view('folders.folder',compact('files', 'folder'));
         }
 
         
