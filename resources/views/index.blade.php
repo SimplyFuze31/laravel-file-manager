@@ -3,7 +3,7 @@
 @section('title','Main page')
     
 
-@include('layouts.header')
+@include('layouts.partials.header')
 @section('content')
 @auth
 <div>
@@ -43,6 +43,6 @@
           <!-- Image         End    -->
       </div>
   </main>
-@include('layouts.footer')
+@include('layouts.partials.footer')
 @endsection
     
