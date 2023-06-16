@@ -28,13 +28,14 @@ class FileController extends Controller
             //check if file exists in database
             if (!DataFile::find($path) ){
                 //save file in folder
-                $file->storeAs($folder->folderpath, $file->getClientOriginalName());
+                File::put($path,$file);
+                //$file->storeAs($folder->folderpath, $file->getClientOriginalName());
                 //take a path
 
                 //save file in database
                 DataFile::create([
                     'filename' => basename($path),
-                    'filesize' => Storage::size($path),
+                    'filesize' => File::size($path),
                     'filepath' => $path,
                     'folder_id' => $folder->id
                 ]);
