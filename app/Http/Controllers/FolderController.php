@@ -6,7 +6,6 @@ use App\Models\Folder;
 use Illuminate\Http\Request;
 use App\Models\File as FileData;
 use Illuminate\Support\Facades\File;
-use Illuminate\Support\Facades\Storage;
 
 class FolderController extends Controller
 {

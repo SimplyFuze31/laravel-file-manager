@@ -4,22 +4,17 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
-use App\Models\File;
+use App\Models\File as DataFile;
+use Illuminate\Support\Facades\File;
 use App\Models\Folder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
 class FileController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-
-
-
     public function upload(Request $request, ?Folder $folder)
     {   
-        //check if the file exists
+        //check if it is the root folder
         if($folder->id === null){
 
             $folder = Folder::find(1);
@@ -31,13 +26,13 @@ class FileController extends Controller
             $file = $request->file('inputGroupFile04');
             $path = $folder->folderpath .  $file->getClientOriginalName();
             //check if file exists in database
-            if (!File::find($path) ){
+            if (!DataFile::find($path) ){
                 //save file in folder
                 $file->storeAs($folder->folderpath, $file->getClientOriginalName());
                 //take a path
 
                 //save file in database
-                File::create([
+                DataFile::create([
                     'filename' => basename($path),
                     'filesize' => Storage::size($path),
                     'filepath' => $path,
@@ -53,20 +48,17 @@ class FileController extends Controller
         } else return redirect()->back()->with('error', 'файл не вибраний');
     }
 
-    //TODO: make file delete
-    public function delete(File $file){
+    public function delete(DataFile $file){
 
-        Storage::delete($file->filepath);
+        File::delete($file->filepath);
         $file->delete();
         return redirect()->back();
 
     }
 
-    //TODO: make file download
-    public function download(File $file){
+    public function download(DataFile $file){
 
-        $path = storage_path('app'). DIRECTORY_SEPARATOR. $file->filepath;
-        return response()->download($path);
+        return response()->download($file->filepath);
 
     }
 
