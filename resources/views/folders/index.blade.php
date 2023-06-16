@@ -98,7 +98,7 @@
                     <tr>
                         <td class="w-100">
                             <i class="bx bxs-folder text-secondary fs-3"></i>
-                            <a href="{{ route('folder.show', $folder) }}"
+                            <a href="{{ route('folder.index', $folder) }}"
                                 class="text-decoration-none link-dark">{{ $folder->foldername }}</a>
                         </td>
                         <td>
