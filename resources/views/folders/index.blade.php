@@ -27,24 +27,27 @@
                         Додати папку
                     </a>
                 </li>
-                @role('admin')
+                {{--@role('admin')
                 <li class="nav-item ms-2">
                     <a class="nav-link active" href="{{route('roles.index')}}">
                         <i class='bx bx-body fs-4'></i>
                         Налаштувати права та ролі
                     </a>
                 </li>
-                @endrole
+                @endrole--}}
             </ul>
         </div>
-        <form class="d-flex" role="search">
+        {{--
+            <form class="d-flex" role="search">
             <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
             <button class="btn btn-outline-success" type="submit">Search</button>
-        </form>
+        </form> 
+        --}}
+
 
 
     </nav>
-
+    @include('layouts.partials.messages')
     {{-- Popup window --}}
     {{-- Form for uploading files --}}
     <div id="fileupload" class="overlay">
