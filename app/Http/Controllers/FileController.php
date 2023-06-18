@@ -25,18 +25,17 @@ class FileController extends Controller
         if ($file = $request->hasFile('inputGroupFile04')) {
             //take file from request
             $file = $request->file('inputGroupFile04');
-            $path = $folder->folderpath .  $file->getClientOriginalName();
+            $path = $folder->folderpath;
             //check if file exists in database
             if (!DataFile::find($path) ){
-                //save file in folder
-                File::put($path,$file);
-                //take a path
+             
+                $file->move($path,$file->getClientOriginalName());
 
                 //save file in database
                 DataFile::create([
                     'filename' => basename($path),
-                    'filesize' => File::size($path),
-                    'filepath' => $path,
+                    'filesize' => File::size($path.$file->getClientOriginalName()),
+                    'filepath' => $path.$file->getClientOriginalName(),
                     'folder_id' => $folder->id
                 ]);
                 return redirect()->back()->with('success', 'Файл успішно завантажений');

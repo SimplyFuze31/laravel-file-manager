@@ -18,5 +18,6 @@ class FolderSeeder extends Seeder
             'foldername'=>'storage',
             'folderpath'=>public_path('storage'. DIRECTORY_SEPARATOR) 
         ]);
+        // TODO: make auto create folder
     }
 }
