@@ -36,9 +36,10 @@ Route::group(['middleware' => ['auth']], function () {
      */
     Route::group(['prefix' => 'users'], function () {
         Route::get('/', [UserController::class , 'index'])->name('users.index');
-        Route::post('/create', [UserController::class , 'create'])->name('users.store');
+        Route::get('/create', [UserController::class , 'create'])->name('users.create');
+        Route::post('/store', [UserController::class , 'store'])->name('users.store');
         Route::patch('/{user}/edit', [UserController::class , 'edit'])->name('users.update');
-        Route::delete('/{user}/delete', [UserController::class , 'delete'])->name('users.destroy');
+        Route::delete('/{user}/delete', [UserController::class , 'destroy'])->name('users.destroy');
     });
 
     Route::group(['prefix' => 'folders'], function(){

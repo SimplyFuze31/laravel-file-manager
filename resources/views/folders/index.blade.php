@@ -29,9 +29,9 @@
                 </li>
                 @role('admin')
                 <li class="nav-item ms-2">
-                    <a class="nav-link active" href="{{route('roles.index')}}">
-                        <i class='bx bx-body fs-4'></i>
-                        Налаштувати права та ролі
+                    <a class="nav-link active" href="{{route('users.index')}}">
+                        <i class='bx bxs-user fs-4'></i>
+                        Користувачі
                     </a>
                 </li>
                 @endrole

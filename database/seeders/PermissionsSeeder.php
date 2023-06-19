@@ -2,9 +2,10 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 class PermissionsSeeder extends Seeder
 {
@@ -13,6 +14,7 @@ class PermissionsSeeder extends Seeder
      */
     public function run(): void
     {
-        Permission::create('can Create');
+        Role::create(['name' => 'teacher']);
+        Role::create(['name' => 'student']);
     }
 }
