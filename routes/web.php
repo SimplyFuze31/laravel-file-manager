@@ -7,6 +7,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RolesController;
 use App\Http\Controllers\FolderController;
+use App\Http\Controllers\PermissionsController;
 
 
 //main page

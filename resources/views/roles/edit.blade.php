@@ -2,9 +2,9 @@
 
 @section('content')
     <div class="bg-light p-4 rounded">
-        <h1>Add new role</h1>
+        <h1>Update role</h1>
         <div class="lead">
-            Add new role and assign permissions.
+            Edit role and manage permissions.
         </div>
 
         <div class="container mt-4">
@@ -20,11 +20,12 @@
                 </div>
             @endif
 
-            <form method="POST" action="">
+            <form method="POST" action="{{ route('roles.update', $role->id) }}">
+                @method('patch')
                 @csrf
                 <div class="mb-3">
                     <label for="name" class="form-label">Name</label>
-                    <input value="{{ old('name') }}" 
+                    <input value="{{ $role->name }}" 
                         type="text" 
                         class="form-control" 
                         name="name" 
@@ -46,7 +47,10 @@
                                 <input type="checkbox" 
                                 name="permission[{{ $permission->name }}]"
                                 value="{{ $permission->name }}"
-                                class='permission'>
+                                class='permission'
+                                {{ in_array($permission->name, $rolePermissions) 
+                                    ? 'checked'
+                                    : '' }}>
                             </td>
                             <td>{{ $permission->name }}</td>
                             <td>{{ $permission->guard_name }}</td>
@@ -54,7 +58,7 @@
                     @endforeach
                 </table>
 
-                <button type="submit" class="btn btn-primary">Save user</button>
+                <button type="submit" class="btn btn-primary">Save changes</button>
                 <a href="{{ route('roles.index') }}" class="btn btn-default">Back</a>
             </form>
         </div>
