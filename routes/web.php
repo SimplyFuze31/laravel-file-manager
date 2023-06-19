@@ -24,10 +24,6 @@ Route::group(['middleware' => ['guest']],function(){
 
 
 Route::group(['middleware' => ['auth']], function () {
-    Route::group(['prefix' => 'roles'],function(){
-        Route::get('/', [RolesController::class , 'index'])->name('roles.index');
-        Route::post('/create', [RolesController::class , 'create'])->name('roles.create');
-    });
     
     /**
      * Logout Routes
@@ -53,6 +49,9 @@ Route::group(['middleware' => ['auth']], function () {
         Route::post('/filedownload{file}', [FileController::class , 'download'])->name('file.download');
         Route::delete('/{file}/delete', [FileController::class , 'delete'])->name('file.destroy');
     });
+
+    Route::resource('roles', RolesController::class);
+    Route::resource('permissions', PermissionsController::class);
 });
 
 
