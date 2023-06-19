@@ -4,7 +4,8 @@
     
 
     <div class="bg-light p-4 rounded">
-        <h1>Налаштування прав доступу</h1>
+        <a href="/folders" class="fs-2 link-dark ">Повернутись назад</a>
+        <h3>Налаштування прав доступу</h3>
         <div class="lead">
             <a href="" class="btn btn-primary btn-sm float-right">Додати нову роль</a>
         </div>

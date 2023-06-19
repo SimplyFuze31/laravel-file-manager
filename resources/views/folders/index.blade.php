@@ -27,14 +27,14 @@
                         Додати папку
                     </a>
                 </li>
-                {{--@role('admin')
+                @role('admin')
                 <li class="nav-item ms-2">
                     <a class="nav-link active" href="{{route('roles.index')}}">
                         <i class='bx bx-body fs-4'></i>
                         Налаштувати права та ролі
                     </a>
                 </li>
-                @endrole--}}
+                @endrole
             </ul>
         </div>
         {{--
