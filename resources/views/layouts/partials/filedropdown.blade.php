@@ -14,6 +14,7 @@
             </form>
         </li>
         <li>
+            @can('can edit')
             <form method="POST" action="{{ route('file.destroy', $file) }}">
                 @csrf
                 @method('delete')
@@ -22,6 +23,8 @@
                         style="color: red">Видалити</button>
                 </div>
             </form>
+            @endcan
+
         </li>
     </ul>
 </div>

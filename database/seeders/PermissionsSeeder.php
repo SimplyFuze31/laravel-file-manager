@@ -14,7 +14,9 @@ class PermissionsSeeder extends Seeder
      */
     public function run(): void
     {
-        Role::create(['name' => 'teacher']);
+        Permission::create(['name' => 'can edit']);
+        $role = Role::create(['name' => 'teacher']);
+        $role->givePermissionTo('can edit');
         Role::create(['name' => 'student']);
     }
 }

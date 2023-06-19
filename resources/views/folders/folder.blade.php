@@ -5,7 +5,7 @@
 @section('content')
 
     <a class="fs-4 " href="/folders">Повернутись назад</a>
-
+    @can('can edit')
     <nav class="navbar navbar-expand-lg bg-body-tertiary px-5">
         <div class="collapse navbar-collapse">
             <ul class="navbar-nav fs-5">
@@ -30,6 +30,8 @@
             <button class="btn btn-outline-success" type="submit">Search</button>
         </form> --}}
     </nav>
+    @endcan
+    
 
     @include('layouts.popup.fileupload')
 

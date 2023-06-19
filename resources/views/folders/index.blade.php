@@ -12,6 +12,7 @@
     короче це пока буде такий робочий кінцевий варіант треба погратись з розміщенням і всією цею хуйньою
     но ладно роблю бек і буду переходити до логін системи --}}
 
+    @can('can edit')
     <nav class="navbar navbar-expand-lg bg-body-tertiary px-5">
         <div class="collapse navbar-collapse">
             <ul class="navbar-nav fs-5">
@@ -43,10 +44,9 @@
             <button class="btn btn-outline-success" type="submit">Search</button>
         </form> 
         --}}
-
-
-
     </nav>
+@endcan
+    
     @include('layouts.partials.messages')
     {{-- Popup window --}}
     {{-- Form for uploading files --}}
@@ -105,6 +105,7 @@
                                 class="text-decoration-none link-dark">{{ $folder->foldername }}</a>
                         </td>
                         <td>
+                            @can('can edit')
                             <form method="POST" action="{{ route('folder.destroy', $folder) }}">
                                 @csrf
                                 @method('delete')
@@ -112,6 +113,8 @@
                                     <button type="submit" class="btn btn-danger">Видалити</button>
                                 </div>
                             </form>
+                            @endcan
+
                         </td>
                     </tr>
                 @empty
@@ -127,32 +130,7 @@
                             {{ basename($file->filepath) }}
                         </td>
                         <td class="w-25">
-                            <div class="btn-group" role="group">
-                                <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown"
-                                    aria-expanded="false">
-                                    •••
-                                </button>
-                                <ul class="dropdown-menu">
-                                    <li>
-                                        <form method="POST" action="{{ route('file.download', $file) }}">
-                                            @csrf
-                                            <div class="modal-footer">
-                                                <button type="submit" class="btn "
-                                                    style="color: green">Завантажити</button>
-                                            </div>
-                                        </form>
-                                    </li>
-                                    <li>
-                                        <form method="POST" action="{{ route('file.destroy', $file) }}">
-                                            @csrf
-                                            @method('delete')
-                                            <div class="modal-footer">
-                                                <button type="submit" class="btn" style="color: red">Видалити</button>
-                                            </div>
-                                        </form>
-                                    </li>
-
-                                </ul>
+                            @include('layouts.partials.filedropdown')
                             </div>
                         </td>
                     </tr>
@@ -166,30 +144,3 @@
         </table>
     </div>
 @endsection
-
-
-{{-- <div class="row container-lg justify-content-center">
-    <div class="col-5 mt-3">
-
-        <div class="border border-success roundeds">
-            <h3 class="mt-3 fs-2 fw-bold text-secondary">Додати новий файл</h3>
-            <form method="POST" action="{{ route('file.upload') }}" enctype="multipart/form-data"class="mt-3 w-75">
-                @csrf
-                <div class="input-group">
-                    <input multiple type="file" class="form-control mw-100" name="inputGroupFile04"
-                        id="inputGroupFile04">
-                    <button type="submit" class="btn btn-primary">Додати файл</button>
-                </div>
-            </form>
-
-            <h3 class="mt-3 fs-2 fw-bold text-secondary">Додати нову папку</h3>
-            <form method="POST" action="{{ route('folder.create') }}" enctype="multipart/form-data" class="mt-3 w-75">
-                @csrf
-                <div class="input-group">
-                    <input type="text" class="form-control mw-100" name="foldername" id="inputFoldername">
-                    <button type="submit" class="btn btn-primary">Додати папку</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div> --}}
