@@ -6,32 +6,24 @@
 
     <a class="fs-4 " href="/folders">Повернутись назад</a>
     @can('can edit')
-    <nav class="navbar navbar-expand-lg bg-body-tertiary px-5">
-        <div class="collapse navbar-collapse">
-            <ul class="navbar-nav fs-5">
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#fileupload">
-                        <i class='bx bxs-file-plus'></i>
-                        Додати файл
-                    </a>
-                </li>
-               {{-- @role('admin')
-                    <li class="nav-item ms-2">
-                        <a class="nav-link active" href="{{ route('roles.index') }}">
-                            <i class='bx bx-body fs-4'></i>
-                            Налаштувати права та ролі
+        <nav class="navbar navbar-expand-lg bg-body-tertiary px-5">
+            <div class="collapse navbar-collapse">
+                <ul class="navbar-nav fs-5">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#fileupload">
+                            <i class='bx bxs-file-plus'></i>
+                            Додати файл
                         </a>
                     </li>
-                @endrole--}}
-            </ul>
-        </div>
-        {{--        <form class="d-flex" role="search">
+                </ul>
+            </div>
+            {{--        <form class="d-flex" role="search">
             <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
             <button class="btn btn-outline-success" type="submit">Search</button>
         </form> --}}
-    </nav>
+        </nav>
     @endcan
-    
+
 
     @include('layouts.popup.fileupload')
 
@@ -51,9 +43,7 @@
                                 <i class="bx bxs-file text-secondary fs-3"></i>
                                 {{ basename($file->filepath) }}
                             </td>
-                            <td>
-                                @include('layouts.partials.filedropdown')
-                            </td>
+                            @include('layouts.partials.filedropdown')
                         </tr>
                     @empty
                         <td colspan="2">Немає наявних файлів</td>

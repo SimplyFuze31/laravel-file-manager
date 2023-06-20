@@ -2,8 +2,11 @@
  .filepage-tbody{
     overflow-y:scroll;
     display:block;
-    min-width: 400px;
-    min-height: 300px;
+
+ }
+ td {
+  width:0.1%;
+  white-space: nowrap;
  }
 
  .overlay {
