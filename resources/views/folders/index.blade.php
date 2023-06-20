@@ -50,7 +50,7 @@
         </nav>
     @endcan
 
-    @include('layouts.partials.messages')
+    
     {{-- Popup window --}}
     {{-- Form for uploading files --}}
     <div id="fileupload" class="overlay">
@@ -92,8 +92,9 @@
     {{-- я короче зробив таблички шоб їх можна було скролити це канєшно убого виглядить --}}
     {{-- right info side --}}
     <div class="container">
+        @include('layouts.partials.messages')
         <table class="table table-hover caption-top">
-            <caption class="fs-2 fw-bold">Папки</caption>
+            <caption class="fs-2 fw-bold">Файли</caption>
             <thead>
                 <th class="fs-5 fw-light ">Назва </th>
                 <th class=""></th>
@@ -113,14 +114,9 @@
                                 </div>
                                 <div>
                                     @can('can edit')
-                                    <form method="POST" action="{{ route('folder.destroy', $folder) }}">
-                                        @csrf
-                                        @method('delete')
-                                        <div>
-                                            <button type="submit" class="btn btn-danger">Видалити</button>
-                                        </div>
-                                    </form>
-                                @endcan
+                                    <a href="#deleteconfirm" class="btn btn-danger">Видалити</a>
+                                    @include('layouts.popup.folderdelconf')
+                                    @endcan
                                 </div>
                             </div>
                         </td>
@@ -150,14 +146,13 @@
                                 </div>
                             </div>
                         </td>
-
-
-
                     </tr>
                 @empty
-                    <tr class="">
-                        <td colspan="2">Немає наявних файлів</td>
+                    @if (count($folders) === 0)
+                    <tr>  
+                        <td colspan="2">Немає файлів та папок</td>
                     </tr>
+                    @endif
                 @endforelse
             </tbody>
         </table>
