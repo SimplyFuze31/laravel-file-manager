@@ -5,13 +5,6 @@
 @include('layouts.partials.header')
 @section('content')
 
-    {{-- Бордери зроблені для того шоб я бачив де ті колонки вопше є
-    я їх пізніше позабираю, а структура така справа будьть показуватись файли і папки 
-    а зліва інструменти для роботи з ними це вже зразу адмін панель студентам буде доступна тільки права сторона --}}
-    {{-- 27.05 Ой блііін я тіки зараз згадав шо в тебе ж день народження Вітаю)
-    короче це пока буде такий робочий кінцевий варіант треба погратись з розміщенням і всією цею хуйньою
-    но ладно роблю бек і буду переходити до логін системи --}}
-
     @can('can edit')
         <nav class="navbar navbar-expand-lg bg-body-tertiary px-5">
             <div class="container">
@@ -40,7 +33,7 @@
                     </ul>
                 </div>
             </div>
-            
+
             {{--
             <form class="d-flex" role="search">
             <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
@@ -50,7 +43,7 @@
         </nav>
     @endcan
 
-    
+
     {{-- Popup window --}}
     {{-- Form for uploading files --}}
     <div id="fileupload" class="overlay">
@@ -89,7 +82,6 @@
 
         </div>
     </div>
-    {{-- я короче зробив таблички шоб їх можна було скролити це канєшно убого виглядить --}}
     {{-- right info side --}}
     <div class="container">
         @include('layouts.partials.messages')
@@ -114,14 +106,14 @@
                                 </div>
                                 <div>
                                     @can('can edit')
-                                    <a href="#deleteconfirm" class="btn btn-danger">Видалити</a>
-                                    @include('layouts.popup.folderdelconf')
+                                        <a href="#deleteconfirm" class="btn btn-danger">Видалити</a>
+                                        @include('layouts.popup.folderdelconf')
                                     @endcan
                                 </div>
                             </div>
                         </td>
                     </tr>
-                    @empty
+                @empty
                 @endforelse
 
                 @forelse ($files as $file)
@@ -129,19 +121,20 @@
                         <td>
                             <div class="d-flex justify-content-between">
                                 <div>
-                                    <form method="POST" id="filedownload{{$file->id}}" action="{{ route('file.download', $file) }}">
+                                    <form method="POST" id="filedownload{{ $file->id }}"
+                                        action="{{ route('file.download', $file) }}">
                                         @csrf
-                                        <a href="#" 
-                                        onclick="document.getElementById('filedownload{{$file->id}}').submit()"
-                                        class="text-decoration-none link-dark">
+                                        <a href="#"
+                                            onclick="document.getElementById('filedownload{{ $file->id }}').submit()"
+                                            class="text-decoration-none link-dark">
                                             <i class="bx bxs-file text-secondary fs-3"></i>
-                                            {{ basename($file->filepath) }} 
+                                            {{ basename($file->filepath) }}
                                         </a>
                                     </form>
                                 </div>
 
-    
-                                <div class="d-flex justify-content-end" >
+
+                                <div class="d-flex justify-content-end">
                                     @include('layouts.partials.filedropdown')
                                 </div>
                             </div>
@@ -149,9 +142,9 @@
                     </tr>
                 @empty
                     @if (count($folders) === 0)
-                    <tr>  
-                        <td colspan="2">Немає файлів та папок</td>
-                    </tr>
+                        <tr>
+                            <td colspan="2">Немає файлів та папок</td>
+                        </tr>
                     @endif
                 @endforelse
             </tbody>

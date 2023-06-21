@@ -29,8 +29,9 @@ class FolderController extends Controller
     public function create(Request $request){
         $incomingdata = $request->validate([
 
-            'foldername' => ['required','max:40']
+            'foldername' => ['required','regex:/^[a-zA-Z]+$/u','max:40']
         ]); 
+
             $path = public_path('storage').DIRECTORY_SEPARATOR.$incomingdata['foldername'].DIRECTORY_SEPARATOR;
             $incomingdata['folderpath'] = $path;
             File::makeDirectory($path, 0755, true);
@@ -46,4 +47,5 @@ class FolderController extends Controller
 
         return redirect()->back()->with('succsess','Папка успішно видалена');
     }
+
 }
