@@ -40,9 +40,12 @@
                             <span class="input-group-text">
                                 <i class="bx bx-lock-alt text-secondary"></i>
                             </span>
-                            <!-- Пароль -->
-                            <input type="password" name="password" id="name" class="form-control"
+                            <input type="password" class="form-control" id="password" placeholder="Password">
+                            <button id="eye-btn"  type="button" class="bx bx-low-vision btn btn-outline-secondary"></button>
+
+                            {{-- <input type="password" name="password" id="name" class="form-control"
                                 placeholder="••••••••••••••••" />
+                            <i class="bx bx-low-vision form-control-feedback"></i> --}}
                         </div>
                         <div class="m-5 text-center">
                             <button type="submit" class="btn btn-secondary bg-primary">
@@ -54,5 +57,23 @@
             </div>
         </div>
     </main>
+    <script>
+        const eyeBtn = document.getElementById("eye-btn");
+        const passwordField = document.getElementById("password");
+
+        eyeBtn.addEventListener("click", (e) => {
+            if (passwordField.type === "password") {
+                // set button class atribute to eye-slash icon
+                e.target.setAttribute("class", "bx bx-show btn btn-outline-secondary");
+                // change the input type to text
+                passwordField.type = "text";
+            } else {
+                // set button class atribute to eye icon
+                e.target.setAttribute("class", "bx bx-low-vision btn btn-outline-secondary");
+                // change the input type to password
+                passwordField.type = "password";
+            }
+        });
+    </script>
     {{-- @include('layouts.footer') --}}
 @endsection

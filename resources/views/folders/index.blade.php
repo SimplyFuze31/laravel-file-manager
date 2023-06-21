@@ -8,7 +8,6 @@
     @can('can edit')
         <nav class="navbar navbar-expand-lg bg-body-tertiary px-5">
             <div class="container">
-                <div class="collapse navbar-collapse">
                     <ul class="navbar-nav fs-5">
                         <li class="nav-item">
                             <a class="nav-link active" aria-current="page" href="#fileupload">
@@ -31,7 +30,6 @@
                             </li>
                         @endrole
                     </ul>
-                </div>
             </div>
 
             {{--
