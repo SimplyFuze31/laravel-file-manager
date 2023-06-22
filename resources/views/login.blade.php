@@ -3,11 +3,6 @@
 @include('layouts.partials.header')
 @section('content')
 
-    @auth
-        <div>
-            <h1>Ви авторизовані </h1>
-        </div>
-    @endauth
     <!-- Main -->
     <main class="m-5">
 
@@ -40,7 +35,7 @@
                             <span class="input-group-text">
                                 <i class="bx bx-lock-alt text-secondary"></i>
                             </span>
-                            <input type="password" class="form-control" id="password" placeholder="Password">
+                            <input type="password" class="form-control" name="password" id="password" placeholder="Password">
                             <button id="eye-btn"  type="button" class="bx bx-low-vision btn btn-outline-secondary"></button>
 
                             {{-- <input type="password" name="password" id="name" class="form-control"
