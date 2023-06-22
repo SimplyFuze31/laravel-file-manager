@@ -12,22 +12,15 @@ use Illuminate\Support\Facades\Storage;
 
 class FileController extends Controller
 {
-    public function upload(Request $request, ?Folder $folder)
+    public function upload(Request $request, int $id)
     {   
-        //check if it is the root folder
-        if($folder->id === null){
-
-            $folder = Folder::find(1);
-
-        }
-       
-        
         if ($file = $request->hasFile('inputGroupFile04')) {
             //take file from request
             $file = $request->file('inputGroupFile04');
+            $folder = Folder::find($id);
             $path = $folder->folderpath;
             //check if file exists in database
-            if (!DataFile::find($path) ){
+            if (file_exists($path)){
              
                 $file->move($path,$file->getClientOriginalName());
 

@@ -4,40 +4,37 @@
 {{-- header пока-шо заглушка --}}
 @include('layouts.partials.header')
 @section('content')
-
     @can('can edit')
         <nav class="navbar navbar-expand-lg bg-body-tertiary px-5">
             <div class="container">
-                    <ul class="navbar-nav fs-5">
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="#fileupload">
-                                <i class='bx bxs-file-plus'></i>
-                                Додати файл
-                            </a>
-                        </li>
+                <ul class="navbar-nav fs-5">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#fileupload">
+                            <i class='bx bxs-file-plus'></i>
+                            Додати файл
+                        </a>
+                    </li>
+                    <li class="nav-item ms-2">
+                        <a class="nav-link active" href="#foldercreate">
+                            <i class='bx bxs-folder-plus'></i>
+                            Додати папку
+                        </a>
+                    </li>
+                    @role('admin')
                         <li class="nav-item ms-2">
-                            <a class="nav-link active" href="#foldercreate">
-                                <i class='bx bxs-folder-plus'></i>
-                                Додати папку
+                            <a class="nav-link active" href="{{ route('users.index') }}">
+                                <i class='bx bxs-user fs-4'></i>
+                                Користувачі
                             </a>
                         </li>
-                        @role('admin')
-                            <li class="nav-item ms-2">
-                                <a class="nav-link active" href="{{ route('users.index') }}">
-                                    <i class='bx bxs-user fs-4'></i>
-                                    Користувачі
-                                </a>
-                            </li>
-                        @endrole
-                    </ul>
+                    @endrole
+                </ul>
             </div>
+            {{-- <form>
+                <input type="search" class="form-control" placeholder="Find user here" name="search"
+                    value="{{ request('search') }}">
+            </form> --}}
 
-            {{--
-            <form class="d-flex" role="search">
-            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success" type="submit">Search</button>
-        </form> 
-        --}}
         </nav>
     @endcan
 
@@ -50,7 +47,7 @@
             <a class="close" href="#">&times;</a>
 
             <div class="content">
-                <form method="POST" action="{{ route('file.upload') }}" enctype="multipart/form-data"class="mt-3 w-75">
+                <form method="POST" action="{{ route('file.upload', 1) }}" enctype="multipart/form-data"class="mt-3 w-75">
                     @csrf
                     <div class="input-group">
                         <input multiple type="file" class="form-control mw-100" name="inputGroupFile04"
@@ -59,7 +56,6 @@
                     </div>
                 </form>
             </div>
-
         </div>
     </div>
     {{-- Form for creating folders --}}
@@ -93,7 +89,6 @@
                 {{-- table rows --}}
                 @forelse ($folders as $folder)
                     <tr>
-
                         <td>
                             <div class="d-flex justify-content-between">
                                 <div>
@@ -104,8 +99,12 @@
                                 </div>
                                 <div>
                                     @can('can edit')
-                                        <a href="#deleteconfirm" class="btn btn-danger">Видалити</a>
-                                        @include('layouts.popup.folderdelconf')
+                                        <form action="{{ route('folder.destroy', $folder) }}" method="POST">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-danger"
+                                                onclick="return confirm('Впевнені що хочете видалити?')">Видалити</button>
+                                        </form>
                                     @endcan
                                 </div>
                             </div>

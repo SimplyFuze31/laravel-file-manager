@@ -4,7 +4,7 @@
         <a class="close" href="#">&times;</a>
 
         <div class="content">
-            <form method="POST" action="{{ route('file.upload',$folder) }}" enctype="multipart/form-data"class="mt-3 w-75">
+            <form method="POST" action="{{ route('file.upload',$folder->id) }}" enctype="multipart/form-data"class="mt-3 w-75">
                 @csrf
                 <div class="input-group">
                     <input multiple type="file" class="form-control mw-100" name="inputGroupFile04"

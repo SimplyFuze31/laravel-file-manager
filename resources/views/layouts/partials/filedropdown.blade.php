@@ -10,7 +10,10 @@
 
 <div class="ms-2">
     @can('can edit')
-        <a href="#deleteconfirm" class="btn btn-danger">Видалити</a>
-        @include('layouts.popup.filedelconf')
+        <form action="{{ route('file.destroy', $file) }}" method="POST">
+            @csrf
+            @method('DELETE')
+            <button type="submit" class="btn btn-danger" onclick="return confirm('Впевнені що хочете видалити?')">Видалити</button>
+        </form>
     @endcan
 </div>

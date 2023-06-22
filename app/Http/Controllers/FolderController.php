@@ -9,43 +9,39 @@ use Illuminate\Support\Facades\File;
 
 class FolderController extends Controller
 {
+    public function rootindex()
+    {
+        $folders = Folder::all()->where('id', '>', 1);
+        $files = FileData::all()->where('folder_id', '=', 1);
+        return view('folders.index', compact('files', 'folders'));
+    }
     public function index(?Folder $folder)
     {
-        // var_dump($folder);
-        if($folder->id === null){
-
-            $folders = Folder::all()->where('id', '>' , 1);
-            $files = FileData::all()->where('folder_id',  1);
-            return view('folders.index', compact('files','folders'));
-        }else{
-            $files = FileData::all()->where('folder_id' ,'=' ,$folder->id);
-            return view('folders.folder',compact('files', 'folder'));
-        }
-
-        
-
+        $files = FileData::all()->where('folder_id', '=', $folder->id);
+        return view('folders.folder', compact('files', 'folder'));
     }
 
-    public function create(Request $request){
+    public function create(Request $request)
+    {
         $incomingdata = $request->validate([
 
-            'foldername' => ['required','regex:/^[a-zA-Z]+$/u','max:40']
-        ]); 
+            'foldername' => ['required', 'regex:/^[a-zA-Z]+$/u', 'max:40']
+        ]);
 
-            $path = public_path('storage').DIRECTORY_SEPARATOR.$incomingdata['foldername'].DIRECTORY_SEPARATOR;
-            $incomingdata['folderpath'] = $path;
-            File::makeDirectory($path, 0755, true);
-            Folder::create($incomingdata);
-            //return var_dump($foldername);
-            return redirect()->back()->with('succsess','Папка успішно створена');
-        }
+        $path = public_path('storage') . DIRECTORY_SEPARATOR . $incomingdata['foldername'] . DIRECTORY_SEPARATOR;
+        $incomingdata['folderpath'] = $path;
+        File::makeDirectory($path, 0755, true);
+        Folder::create($incomingdata);
+        //return var_dump($foldername);
+        return redirect()->back()->with('succsess', 'Папка успішно створена');
+    }
 
-    public function delete(Folder $folder){
-        
+    public function delete(Folder $folder)
+    {
+
         File::deleteDirectory($folder->folderpath);
         $folder->delete();
 
-        return redirect()->back()->with('succsess','Папка успішно видалена');
+        return redirect()->back()->with('succsess', 'Папка успішно видалена');
     }
-
 }

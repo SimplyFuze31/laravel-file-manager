@@ -43,13 +43,13 @@ Route::group(['middleware' => ['auth']], function () {
     });
 
     Route::group(['prefix' => 'folders'], function(){
-
+        Route::get('/', [FolderController::class , 'rootindex'])->name('folder.rootindex');
         Route::get('/{folder?}', [FolderController::class , 'index'])->name('folder.index');
         Route::post('/create', [FolderController::class , 'create'])->name('folder.create');
         Route::delete('/delete/{folder}', [FolderController::class , 'delete'])->name('folder.destroy');
-        Route::post('/fileupload{folder?}', [FileController::class , 'upload'])->name('file.upload');
+        Route::post('/fileupload{id?}', [FileController::class , 'upload'])->name('file.upload');
         Route::post('/filedownload{file}', [FileController::class , 'download'])->name('file.download');
-        Route::delete('/{file}/delete', [FileController::class , 'delete'])->name('file.destroy');
+        Route::delete('/filedelete/{file}', [FileController::class , 'delete'])->name('file.destroy');
     });
 
     Route::resource('roles', RolesController::class);
