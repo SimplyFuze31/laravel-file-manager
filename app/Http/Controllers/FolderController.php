@@ -25,7 +25,7 @@ class FolderController extends Controller
     {
         $incomingdata = $request->validate([
 
-            'foldername' => ['required', 'regex:/^[a-zA-Z]+$/u', 'max:40']
+            'foldername' => ['required','max:40']
         ]);
 
         $path = public_path('storage') . DIRECTORY_SEPARATOR . $incomingdata['foldername'] . DIRECTORY_SEPARATOR;

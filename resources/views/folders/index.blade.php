@@ -78,7 +78,9 @@
     </div>
     {{-- right info side --}}
     <div class="container">
-        @include('layouts.partials.messages')
+        @if ($errors->any())
+            {!! implode('', $errors->all('<div>:message</div>')) !!}
+        @endif
         <table class="table table-hover caption-top">
             <caption class="fs-2 fw-bold">Файли</caption>
             <thead>

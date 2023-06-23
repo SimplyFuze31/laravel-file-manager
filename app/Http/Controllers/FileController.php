@@ -13,47 +13,44 @@ use Illuminate\Support\Facades\Storage;
 class FileController extends Controller
 {
     public function upload(Request $request, int $id)
-    {   
+    {
         if ($file = $request->hasFile('inputGroupFile04')) {
             //take file from request
             $file = $request->file('inputGroupFile04');
             $folder = Folder::find($id);
             $path = $folder->folderpath;
+            
             //check if file exists in database
-            if (file_exists($path)){
-             
-                $file->move($path,$file->getClientOriginalName());
+            if (!file_exists($path.$file->getClientOriginalName())) {
+                
+                $file->move($path, $file->getClientOriginalName());
 
                 //save file in database
                 DataFile::create([
                     'filename' => basename($path),
-                    'filesize' => File::size($path.$file->getClientOriginalName()),
-                    'filepath' => $path.$file->getClientOriginalName(),
+                    'filesize' => File::size($path . $file->getClientOriginalName()),
+                    'filepath' => $path . $file->getClientOriginalName(),
                     'folder_id' => $folder->id
                 ]);
                 return redirect()->back()->with('success', 'Файл успішно завантажений');
-
-            } 
-            else {
-                return redirect()->back()->with('error', 'Такий файл вже існує');
-            } 
-
+            } else {
+                
+                 return redirect()->back()->with('error', 'Такий файл вже існує');
+            }
         } else return redirect()->back()->with('error', 'файл не вибраний');
     }
 
-    public function delete(DataFile $file){
+    public function delete(DataFile $file)
+    {
 
         File::delete($file->filepath);
         $file->delete();
         return redirect()->back();
-
     }
 
-    public function download(DataFile $file){
+    public function download(DataFile $file)
+    {
 
         return response()->download($file->filepath);
-
     }
-
-
 }
