@@ -47,6 +47,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/{folder?}', [FolderController::class , 'index'])->name('folder.index');
         Route::post('/create', [FolderController::class , 'create'])->name('folder.create');
         Route::delete('/delete/{folder}', [FolderController::class , 'delete'])->name('folder.destroy');
+        Route::get('/files/{file}', [FileController::class, 'preview'])->name('file.preview');
         Route::post('/fileupload{id?}', [FileController::class , 'upload'])->name('file.upload');
         Route::post('/filedownload{file}', [FileController::class , 'download'])->name('file.download');
         Route::delete('/filedelete/{file}', [FileController::class , 'delete'])->name('file.destroy');

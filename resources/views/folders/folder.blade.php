@@ -41,11 +41,11 @@
                             <td>
                                 <div class="d-flex justify-content-between">
                                     <div>
-                                        <form method="POST" id="filedownload{{ $file->id }}"
-                                            action="{{ route('file.download', $file) }}">
+                                        <form method="GET" id="filepreview{{ $file->id }}"
+                                            action="{{ route('file.preview', $file) }}">
                                             @csrf
                                             <a href="#"
-                                                onclick="document.getElementById('filedownload{{ $file->id }}').submit()"
+                                                onclick="document.getElementById('filepreview{{ $file->id }}').submit()"
                                                 class="text-decoration-none link-dark">
                                                 <i class="bx bxs-file text-secondary fs-3"></i>
                                                 {{ basename($file->filepath) }}

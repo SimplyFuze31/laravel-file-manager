@@ -39,7 +39,17 @@ class FileController extends Controller
             }
         } else return redirect()->back()->with('error', 'файл не вибраний');
     }
-
+    public function preview(DataFile $file)
+    {
+        // Перевірити, чи існує файл у сховищі
+        $path = $file->filepath;
+        if (!File::exists($path)) {
+            abort(404);
+        }
+    
+        // Повернути файл як HTTP-відповідь
+        return response()->file($path);
+    }
     public function delete(DataFile $file)
     {
 

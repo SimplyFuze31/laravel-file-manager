@@ -120,8 +120,8 @@
                         <td>
                             <div class="d-flex justify-content-between">
                                 <div>
-                                    <form method="POST" id="filedownload{{ $file->id }}"
-                                        action="{{ route('file.download', $file) }}">
+                                    <form method="GET" id="filedownload{{ $file->id }}"
+                                        action="{{ route('file.preview', $file) }}">
                                         @csrf
                                         <a href="#"
                                             onclick="document.getElementById('filedownload{{ $file->id }}').submit()"
