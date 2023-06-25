@@ -15,20 +15,18 @@ class Folder extends Model
     public function files():HasMany{
         return $this->hasMany(File::class);
     }
-    public function getPath()
+    public function parent()
     {
-        $path = $this->foldername;
-        $parent = $this->parent;
-
-        while ($parent) {
-            $path = $parent->foldername . '/' . $path;
-            $parent = $parent->parent;
-        }
-        return $path;
+        return $this->belongsTo(Folder::class, 'parent_id');
+    }
+    public function children()
+    {
+        return $this->hasMany(Folder::class, 'parent_id');
     }
     protected static function booted () {
         static::deleting(function(Folder $folder) { // before delete() method call this
              $folder->files()->delete();
+             $folder->children()->delete();
              // do the rest of the cleanup...
         });
     }

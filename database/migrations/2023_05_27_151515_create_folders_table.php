@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('foldername');
             $table->string('folderpath')->unique();
+            $table->integer('parent_id');
             $table->timestamps();
         });
     }
