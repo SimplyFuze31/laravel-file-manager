@@ -26,16 +26,17 @@ class FolderController extends Controller
         return view('folders.folder', compact('files', 'folder'));
     }
 
-    public function create(Request $request)
+    public function create(Request $request, Folder $folder)
     {
+        if($folder->id === null) 
+            $folder = Folder::find(1);
         $incomingdata = $request->validate([
 
             'foldername' => ['required','max:40']
         ]);
-
-        $path = public_path('storage') . DIRECTORY_SEPARATOR . $incomingdata['foldername'] . DIRECTORY_SEPARATOR;
-        $incomingdata['folderpath'] = $path;
-        File::makeDirectory($path, 0755, true);
+        $incomingdata['folderpath'] = $folder->folderpath . $incomingdata['foldername'] . DIRECTORY_SEPARATOR;
+        $incomingdata['parent_id'] = $folder->id;
+        File::makeDirectory($incomingdata['folderpath'], 0755, true);
         Folder::create($incomingdata);
         //return var_dump($foldername);
         return redirect()->back()->with('succsess', 'Папка успішно створена');
