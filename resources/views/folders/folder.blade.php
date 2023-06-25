@@ -1,71 +1,122 @@
 @extends('layouts.layout')
 
-@section('title', $folder->foldername)
-
+@section('title', 'File page')
+{{-- header пока-шо заглушка --}}
+@include('layouts.partials.header')
 @section('content')
     
-    @can('can edit')
-    <div class="container">
-        <a class="fs-5 btn btn-primary my-3  " href="/folders">Повернутись назад</a>
-        <nav class="navbar navbar-expand-lg bg-body-tertiary px-3">
-                    <ul class="navbar-nav fs-5">
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="#fileupload">
-                                <i class='bx bxs-file-plus'></i>
-                                Додати файл
+        <nav class="navbar navbar-expand-lg bg-body-tertiary px-5">
+            <div class="container">
+                <ul class="navbar-nav fs-5">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#fileupload">
+                            <i class='bx bxs-file-plus'></i>
+                            Додати файл
+                        </a>
+                    </li>
+                    @can('can edit')
+                    <li class="nav-item ms-2">
+                        <a class="nav-link active" href="#foldercreate">
+                            <i class='bx bxs-folder-plus'></i>
+                            Додати папку
+                        </a>
+                    </li>
+                    @endcan
+                    @role('admin')
+                        <li class="nav-item ms-2">
+                            <a class="nav-link active" href="{{ route('users.index') }}">
+                                <i class='bx bxs-user fs-4'></i>
+                                Користувачі
                             </a>
                         </li>
-                    </ul>
+                    @endrole
+                </ul>
+            </div>
+            {{-- <form>
+                <input type="search" class="form-control" placeholder="Find user here" name="search"
+                    value="{{ request('search') }}">
+            </form> --}}
 
-            {{--        <form class="d-flex" role="search">
-            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success" type="submit">Search</button>
-        </form> --}}
         </nav>
-    </div>
-    @endcan
-
-
     @include('layouts.popup.fileupload')
+    {{-- Form for creating folders --}}
+    @include('layouts.popup.foldercreate')
+    <div class="container">
 
-    {{-- Table --}}
-    <div class="container mt-3">
-            <table class="table table-hover caption-top">
-                <caption class="fs-2 fw-bold">{{ $folder->foldername }}</caption>
-                <thead>
-                    <th class="fs-5 fw-light ">Назва </th>
-                </thead>
-                <tbody>
-                    @forelse ($files as $file)
-                        <tr>
-                            <td>
-                                <div class="d-flex justify-content-between">
-                                    <div>
-                                        <form method="GET" id="filepreview{{ $file->id }}"
-                                            action="{{ route('file.preview', $file) }}">
-                                            @csrf
-                                            <a href="#"
-                                                onclick="document.getElementById('filepreview{{ $file->id }}').submit()"
-                                                class="text-decoration-none link-dark">
-                                                <i class="bx bxs-file text-secondary fs-3"></i>
-                                                {{ basename($file->filepath) }}
-                                            </a>
-                                        </form>
-                                    </div>
-                                    <div class="d-flex justify-content-end">
-                                        @include('layouts.partials.filedropdown')
-                                    </div>
+        <div>
+            @if ($folder->parent->id > 1)
+            <a href="{{ route('folder.index', $folder->parent->id) }}">Повернутись назад</a>
+            @else <a class="" href="{{ route('folder.rootindex') }}">Повернутись назад</a>
+            @endif
+
+        </div>
+        <table class="table table-hover caption-top">
+            <caption class="fs-2 fw-bold">{{$folder->foldername}}</caption>
+            <thead>
+                <th class="fs-5 fw-light ">Назва </th>
+                <th class=""></th>
+            </thead>
+            <tbody class="filepage-tbody">
+                {{-- table rows --}}
+                @forelse ($folders as $folder)
+                    <tr>
+                        <td>
+                            <div class="d-flex justify-content-between">
+                                <div>
+                                    <a href="{{ route('folder.index', $folder) }}" class="text-decoration-none link-dark">
+                                        <i class="bx bxs-folder text-secondary fs-3"></i>
+                                        {{ $folder->foldername }}
+                                    </a>
                                 </div>
-                            </td>
-                        </tr>
-                    @empty
+                                <div>
+                                    @can('can edit')
+                                        <form action="{{ route('folder.destroy', $folder) }}" method="POST">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-danger"
+                                                onclick="return confirm('Впевнені що хочете видалити?')">Видалити</button>
+                                        </form>
+                                    @endcan
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                @empty
+                @endforelse
+
+                @forelse ($files as $file)
+                    <tr class="">
+                        <td>
+                            <div class="d-flex justify-content-between">
+                                <div>
+                                    <form method="GET" id="filedownload{{ $file->id }}"
+                                        action="{{ route('file.preview', $file) }}">
+                                        @csrf
+                                        <a href="#"
+                                            onclick="document.getElementById('filedownload{{ $file->id }}').submit()"
+                                            class="text-decoration-none link-dark">
+                                            <i class="bx bxs-file text-secondary fs-3"></i>
+                                            {{ basename($file->filepath) }}
+                                        </a>
+                                    </form>
+                                </div>
+
+
+                                <div class="d-flex justify-content-end">
+                                    @include('layouts.partials.filedropdown')
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                @empty
+                    @if (count($folders) === 0)
                         <tr>
                             <td colspan="2">Немає файлів та папок</td>
                         </tr>
-                    @endforelse
-                </tbody>
-            </table>
-
+                    @endif
+                @endforelse
+            </tbody>
+        </table>
     </div>
-
 @endsection
+

@@ -11,25 +11,28 @@ class FolderController extends Controller
 {
     public function rootindex()
     {   
+        $folder = Folder::find(1);
         if(request('search')){
 
         }else{
-            $folders = Folder::all()->where('id', '>', 1);
-            $files = FileData::all()->where('folder_id', '=', 1);
+            $folders = $folder->children()->get();
+            $files = $folder->files()->get();
             return view('folders.index', compact('files', 'folders'));
         }
 
     }
-    public function index(?Folder $folder)
+    public function index(Folder $folder)
     {
-        $files = FileData::all()->where('folder_id', '=', $folder->id);
-        return view('folders.folder', compact('files', 'folder'));
+        $files = $folder->files()->get();
+        $folders = $folder->children()->get();
+        return view('folders.folder', compact('files', 'folder' , 'folders'));
     }
 
     public function create(Request $request, Folder $folder)
     {
         if($folder->id === null) 
             $folder = Folder::find(1);
+
         $incomingdata = $request->validate([
 
             'foldername' => ['required','max:40']

@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Facades\File as FileExecuter;
 
 class Folder extends Model
 {
@@ -26,7 +27,7 @@ class Folder extends Model
     protected static function booted () {
         static::deleting(function(Folder $folder) { // before delete() method call this
              $folder->files()->delete();
-             File::deleteDirectory($folder->folderpath);
+             FileExecuter::deleteDirectory($folder->folderpath);
              $folder->children()->delete();
              // do the rest of the cleanup...
         });
