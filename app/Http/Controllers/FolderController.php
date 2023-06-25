@@ -10,10 +10,15 @@ use Illuminate\Support\Facades\File;
 class FolderController extends Controller
 {
     public function rootindex()
-    {
-        $folders = Folder::all()->where('id', '>', 1);
-        $files = FileData::all()->where('folder_id', '=', 1);
-        return view('folders.index', compact('files', 'folders'));
+    {   
+        if(request('search')){
+
+        }else{
+            $folders = Folder::all()->where('id', '>', 1);
+            $files = FileData::all()->where('folder_id', '=', 1);
+            return view('folders.index', compact('files', 'folders'));
+        }
+
     }
     public function index(?Folder $folder)
     {
