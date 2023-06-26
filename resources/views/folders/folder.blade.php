@@ -4,57 +4,62 @@
 {{-- header пока-шо заглушка --}}
 @include('layouts.partials.header')
 @section('content')
-    
-        <nav class="navbar navbar-expand-lg bg-body-tertiary px-5">
-            <div class="container">
-                <ul class="navbar-nav fs-5">
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#fileupload">
-                            <i class='bx bxs-file-plus'></i>
-                            Додати файл
-                        </a>
-                    </li>
-                    @can('can edit')
+
+    <nav class="navbar navbar-expand-lg bg-body-tertiary px-5">
+        <div class="container">
+            <ul class="navbar-nav fs-5">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="#fileupload">
+                        <i class='bx bxs-file-plus'></i>
+                        Додати файл
+                    </a>
+                </li>
+                @can('can edit')
                     <li class="nav-item ms-2">
                         <a class="nav-link active" href="#foldercreate">
                             <i class='bx bxs-folder-plus'></i>
                             Додати папку
                         </a>
                     </li>
-                    @endcan
-                    @role('admin')
-                        <li class="nav-item ms-2">
-                            <a class="nav-link active" href="{{ route('users.index') }}">
-                                <i class='bx bxs-user fs-4'></i>
-                                Користувачі
-                            </a>
-                        </li>
-                    @endrole
-                </ul>
-            </div>
-            {{-- <form>
+                @endcan
+                @role('admin')
+                    <li class="nav-item ms-2">
+                        <a class="nav-link active" href="{{ route('users.index') }}">
+                            <i class='bx bxs-user fs-4'></i>
+                            Користувачі
+                        </a>
+                    </li>
+                @endrole
+            </ul>
+        </div>
+        {{-- <form>
                 <input type="search" class="form-control" placeholder="Find user here" name="search"
                     value="{{ request('search') }}">
             </form> --}}
 
-        </nav>
+    </nav>
     @include('layouts.popup.fileupload')
     {{-- Form for creating folders --}}
-    @include('layouts.popup.foldercreate')
+    @include('layouts.popup.foldercreate' , $folder)
     <div class="container">
 
         <div>
             @if ($folder->parent->id > 1)
-            <a href="{{ route('folder.index', $folder->parent->id) }}">Повернутись назад</a>
-            @else <a class="" href="{{ route('folder.rootindex') }}">Повернутись назад</a>
+                <a class="fs-3 align-middle text-decoration-none link-secondary"
+                    href="{{ route('folder.index', $folder->parent->id) }}">
+                    <i class='bx bx-arrow-back mx-2 align-middle'></i>Повернутись назад
+                </a>
+            @else
+                <a class="fs-3 align-middle text-decoration-none link-secondary" href="{{ route('folder.rootindex') }}">
+                    <i class='bx bx-arrow-back mx-2 align-middle'></i>Повернутись назад
+                </a>
             @endif
 
         </div>
         <table class="table table-hover caption-top">
-            <caption class="fs-2 fw-bold">{{$folder->foldername}}</caption>
+            <caption class="fs-2 fw-bold">{{ $folder->foldername }}</caption>
             <thead>
                 <th class="fs-5 fw-light ">Назва </th>
-                <th class=""></th>
             </thead>
             <tbody class="filepage-tbody">
                 {{-- table rows --}}
@@ -119,4 +124,3 @@
         </table>
     </div>
 @endsection
-

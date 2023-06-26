@@ -4,7 +4,7 @@
 {{-- header пока-шо заглушка --}}
 @include('layouts.partials.header')
 @section('content')
-    @can('can edit')
+    
         <nav class="navbar navbar-expand-lg bg-body-tertiary px-5">
             <div class="container">
                 <ul class="navbar-nav fs-5">
@@ -14,12 +14,14 @@
                             Додати файл
                         </a>
                     </li>
+                    @can('can edit')
                     <li class="nav-item ms-2">
                         <a class="nav-link active" href="#foldercreate">
                             <i class='bx bxs-folder-plus'></i>
                             Додати папку
                         </a>
                     </li>
+                    @endcan
                     @role('admin')
                         <li class="nav-item ms-2">
                             <a class="nav-link active" href="{{ route('users.index') }}">
@@ -36,7 +38,7 @@
             </form> --}}
 
         </nav>
-    @endcan
+
 
 
     {{-- Popup window --}}
@@ -69,6 +71,10 @@
                     @csrf
                     <div class="input-group">
                         <input type="text" class="form-control mw-100" name="foldername" id="inputFoldername">
+                        <select name="permissionselect" id="">
+                            <option value="Acsess to student folder">Для студентів</option>
+                            <option value="Acsess to teacher folder">Для викладачів</option>
+                        </select>
                         <button type="submit" class="btn btn-primary">Додати папку</button>
                     </div>
                 </form>
@@ -78,14 +84,10 @@
     </div>
     {{-- right info side --}}
     <div class="container">
-        @if ($errors->any())
-            {!! implode('', $errors->all('<div>:message</div>')) !!}
-        @endif
         <table class="table table-hover caption-top">
             <caption class="fs-2 fw-bold">Файли</caption>
             <thead>
                 <th class="fs-5 fw-light ">Назва </th>
-                <th class=""></th>
             </thead>
             <tbody class="filepage-tbody">
                 {{-- table rows --}}

@@ -5,10 +5,12 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
+use Spatie\Permission\Traits\HasRoles;
+
 
 class UserController extends Controller
 {
-    
+    use HasRoles;
 
     public function index() 
     {
@@ -40,7 +42,6 @@ class UserController extends Controller
             'password' => bcrypt($incomingdata['password']),
         ]);
         $user->assignRole([$incomingdata['role-select']]);
-        echo 'I`m alive';
         return redirect()->route('users.index')->with('success','Користувач успішно доданий');
 
     }

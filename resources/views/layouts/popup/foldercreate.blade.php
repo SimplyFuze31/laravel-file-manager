@@ -8,6 +8,10 @@
                 @csrf
                 <div class="input-group">
                     <input type="text" class="form-control mw-100" name="foldername" id="inputFoldername">
+                    <select name="permissionselect" id="">
+                        <option value="Acsess to student folder">Для студентів</option>
+                        <option value="Acsess to teacher folder">Для викладачів</option>
+                    </select>
                     <button type="submit" class="btn btn-primary">Додати папку</button>
                 </div>
             </form>

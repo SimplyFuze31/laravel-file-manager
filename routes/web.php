@@ -44,7 +44,9 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::group(['prefix' => 'folders'], function(){
         Route::get('/', [FolderController::class , 'rootindex'])->name('folder.rootindex');
-        Route::get('/{folder?}', [FolderController::class , 'index'])->name('folder.index');
+        Route::group(['middleware' => 'folder.permission'], function () {
+            Route::get('/{folder?}', [FolderController::class , 'index'])->name('folder.index');
+        });
         Route::post('/create/{folder?}', [FolderController::class , 'create'])->name('folder.create');
         Route::delete('/delete/{folder}', [FolderController::class , 'delete'])->name('folder.destroy');
         Route::get('/files/{file}', [FileController::class, 'preview'])->name('file.preview');
