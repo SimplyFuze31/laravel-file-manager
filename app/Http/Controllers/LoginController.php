@@ -9,11 +9,11 @@ use App\Services\Login\RememberMeExpiration;
 
 class LoginController extends Controller
 {
-    
+
     public function show(){
         return view('login');
     }
-    
+
     public function login(Request  $request){
 
         $incomingfields = $request->validate([
@@ -24,23 +24,23 @@ class LoginController extends Controller
 
         if(auth()->attempt($incomingfields)){
             $request->session()->regenerate();
-            return redirect('/folders');
+            return redirect()->route('folder.rootindex');
         }else{
             return redirect()->back()->with('error','Невірні дані');
         }
     }
 
-    // protected function authenticated(Request $request, $user) 
+    // protected function authenticated(Request $request, $user)
     // {
     //     return redirect()->intended();
     // }
 
     public function logout(){
         Session::flush();
-        
+
         Auth::logout();
 
         return redirect('login');
-        
+
     }
 }

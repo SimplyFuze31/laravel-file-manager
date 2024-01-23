@@ -2,9 +2,11 @@
 
 namespace Database\Seeders;
 
+use App\Http\Controllers\FolderController;
 use App\Models\Folder;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\File;
 
 class FolderSeeder extends Seeder
 {
@@ -15,10 +17,10 @@ class FolderSeeder extends Seeder
     {
         Folder::create([
             'id' => 1,
-            'foldername'=>'storage',
-            'folderpath'=>public_path('storage'. DIRECTORY_SEPARATOR),
+            'foldername'=>basename(env('STORAGE_PATH')),
+            'folderpath'=> env('STORAGE_PATH'),
             'parent_id' => 0
         ]);
-        // TODO: make auto create folder
+        File::makeDirectory(basename(env('STORAGE_PATH')), 0755, true);
     }
 }
